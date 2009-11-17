@@ -1,0 +1,6 @@
+{
+    "name": "firephp-extension",
+    "dependencies": [
+        "narwhal"
+    ]
+}
