@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Firebug</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="chrome://firephp/content/VariableInspectorPanel.css" type="text/css"/>
+  	<script src="chrome://firephp/content/md5.js"></script>
+  	<script src="chrome://firephp/content/VariableInspectorPanel.js"></script>
+</head>
+<body>
+
+<table class="layout" border="0" cellpadding="0" cellspacing="0">
+	<tr>
+		<td class="header">
+			<table class="toolbar" border="0" cellpadding="0" cellspacing="0">
+				<tr>
+					<td class="icon" nowrap>
+					  <img src="chrome://firephp/skin/spacer.gif" border="0" width="18" height="1">
+					</td>
+					<td class="title" nowrap width="100%">
+						Variable Viewer
+					</td>
+          <td class="sizing" nowrap>
+            <a href="#" onClick="top.FirePHP.sizeVariableInspectorOverlayWidthTo('50%');">50%</a> | <a href="#" onClick="top.FirePHP.sizeVariableInspectorOverlayWidthTo('70%');">70%</a> | <a href="#" onClick="top.FirePHP.sizeVariableInspectorOverlayWidthTo('90%');">90%</a>
+          </td>
+					<td class="close" nowrap>
+						<a id="closelink" href="#" onClick="top.FirePHP.hideVariableInspectorOverlay(true);">Close</a> 
+					</td>
+				</tr>
+			</table>
+		</td>	
+	</tr>
+	<tr>
+		<td id="content" class="content">
+			<div id="variable-div"></div>			
+		</td>	
+	</tr>
+</table>
+
+</body>
+</html>

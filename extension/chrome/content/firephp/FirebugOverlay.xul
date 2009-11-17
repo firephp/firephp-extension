@@ -1,0 +1,84 @@
+<?xml version="1.0"?> 
+
+<?xml-stylesheet href="chrome://firephp/skin/firephp.css" type="text/css"?>
+
+
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+         xmlns:html="http://www.w3.org/1999/xhtml">
+
+
+  <script type="application/x-javascript" src="chrome://firephp/content/md5.js"/>
+  <script type="application/x-javascript" src="chrome://firephp/content/json_parse.js"/>
+  <script type="application/x-javascript" src="chrome://firephp/content/FirePHPLib.js"/>
+  <script type="application/x-javascript" src="chrome://firephp/content/Wildfire/Wildfire.js"/>
+  <script type="application/x-javascript" src="chrome://firephp/content/Wildfire/Channel/HttpHeaders.js"/>
+  <script type="application/x-javascript" src="chrome://firephp/content/Wildfire/Protocol/JsonStream-0.1.js"/>
+  <script type="application/x-javascript" src="chrome://firephp/content/Wildfire/Protocol/JsonStream-0.2.js"/>
+  <script type="application/x-javascript" src="chrome://firephp/content/Wildfire/Plugin/FirePHP.js"/>
+  <script type="application/x-javascript" src="chrome://firephp/content/FirePHP.js"/>
+  <script type="application/x-javascript" src="chrome://firephp/content/FirebugNetOverride.js"/>
+  <script type="application/x-javascript" src="chrome://firephp/content/reps.js"/>
+
+	<script>
+FBL.ns(function() { with (FBL) {
+
+	top.FirePHP.initialize();
+				
+}});
+	</script>
+
+
+    <menupopup id="menu_ToolsPopup">
+        <menu id="menu_firephp" class="menuitem-iconic" image="chrome://firephp/skin/FirePHP_16.png"
+              label="FirePHP" insertafter="menu_firebug">
+            <menupopup onpopupshowing="return Firebug.FirePHP.onOptionsShowing(this);">
+		
+			        <menuitem class="menuitem-iconic firephpMenuWelcomeItem" label="FirePHP Headquarters" oncommand="Firebug.FirePHP.visitWebsite('hq')"/>
+			        <menuseparator/>
+	            <menuitem type="checkbox" label="FirePHP Enabled"
+	                       oncommand="Firebug.FirePHP.onToggleOption(this)"
+	                       option="enabled"/>
+			        <menuseparator/>
+	            <menuitem label="Allowed Sites..." oncommand="Firebug.FirePHP.openPermissions()"/>
+			        <menuseparator/>
+			        <menuitem label="FirePHP Website" oncommand="Firebug.FirePHP.visitWebsite('main')"/>
+			        <menuitem label="Documentation" oncommand="Firebug.FirePHP.visitWebsite('docs')"/>
+			        <menuitem label="Forums / Help" oncommand="Firebug.FirePHP.visitWebsite('discuss')"/>
+			        <menuitem label="Issues Tracker" oncommand="Firebug.FirePHP.visitWebsite('issues')"/>
+			        <menuseparator/>
+			        <menuitem label="About" oncommand="Firebug.FirePHP.openAboutDialog()"/>
+  		        <menuitem label="Donate" oncommand="Firebug.FirePHP.visitWebsite('donate')"/>
+            </menupopup>
+        </menu>
+    </menupopup>
+    
+    
+    <toolbar id="fbToolbar">
+
+        <toolbarbutton id="firephpMenu" type="menu" insertafter="fbFirebugMenu">
+            
+	        <menupopup id="firephpMenuPopup" onpopupshowing="return Firebug.FirePHP.onOptionsShowing(this);">
+            
+		        <menuitem class="menuitem-iconic firephpMenuWelcomeItem" label="FirePHP Headquarters" oncommand="Firebug.FirePHP.visitWebsite('hq')"/>
+		        <menuseparator/>
+            <menuitem type="checkbox" label="FirePHP Enabled"
+                       oncommand="Firebug.FirePHP.onToggleOption(this)"
+                       option="enabled"/>
+		        <menuseparator/>
+            <menuitem label="Allowed Sites..." oncommand="Firebug.FirePHP.openPermissions()"/>
+		        <menuseparator/>
+		        <menuitem label="FirePHP Website" oncommand="Firebug.FirePHP.visitWebsite('main')"/>
+		        <menuitem label="Documentation" oncommand="Firebug.FirePHP.visitWebsite('docs')"/>
+		        <menuitem label="Forums / Help" oncommand="Firebug.FirePHP.visitWebsite('discuss')"/>
+		        <menuitem label="Issues Tracker" oncommand="Firebug.FirePHP.visitWebsite('issues')"/>
+		        <menuseparator/>
+		        <menuitem label="About" oncommand="Firebug.FirePHP.openAboutDialog()"/>
+		        <menuitem label="Donate" oncommand="Firebug.FirePHP.visitWebsite('donate')"/>
+  				
+  				</menupopup>
+            
+        </toolbarbutton>
+
+    </toolbar>
+
+</overlay>

@@ -1,0 +1,59 @@
+
+
+.objectLink-PHPVariable {
+  color: DarkGreen;
+  font-family: Monaco, monospace;
+}
+
+.objectLink-PHPVariable:hover {
+  cursor: pointer;
+}
+
+
+
+.firephp-row-label {
+  font-family: Monaco, monospace;
+  color: black;
+}
+
+
+.objectLink-firephp-array {
+    font-family: Lucida Grande, sans-serif;
+    color: black;
+    white-space: -moz-pre-wrap;
+}
+.objectLink-firephp-array:hover {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+
+.objectBox-firephp-class {
+    color: brown;
+    font-weight: bold;
+    white-space: -moz-pre-wrap;
+}
+
+.objectBox-firephp-class SPAN.props {
+    font-weight: normal;
+}
+
+
+.objectBox-firephp-number {
+    color: green;
+}
+
+.objectBox-firephp-text {
+    font-family: Monaco, monospace;
+    color: black;
+}
+
+.objectBox-firephp-boolean {
+    color: navy;
+}
+
+
+.objectBox-firephp-more {
+    color: green;
+    font-weight: bold;
+}

@@ -1,0 +1,177 @@
+
+HTML, BODY {
+  padding: 0px;
+  margin: 0px;
+  height: 100%;
+}
+
+IMG {
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+}
+
+TABLE.layout {
+  width: 100%;
+  height: 100%;
+}
+
+TABLE.layout TR TD.header {
+  border: 2px solid gray;
+  padding: 2px;
+  margin: 0px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background: #F6F6F6 url(chrome://firebug/skin/mac/toolbar.gif) repeat-x;
+  border-bottom: 0px;
+  height: 24px;
+}
+
+TABLE.toolbar {
+  width: 100%;
+  height: 16px;
+  
+  
+}
+
+TABLE.toolbar TR TD.icon {
+  vertical-align: middle;
+  background: #F6F6F6 url(chrome://firephp/skin/MenubarLogo1.png) no-repeat;
+  background-position: 0px -2px;
+  width: 16px;
+  height: 16px;
+}
+
+TABLE.toolbar TR TD.title {
+  font-weight: normal;
+  font-family: Monaco, monospace;
+  font-size: 11px;
+  text-align: center;
+  vertical-align: middle;
+  color: gray;
+  padding-left: 64px;
+}
+
+TABLE.toolbar TR TD.sizing {
+  font-weight: normal;
+  font-family: Monaco, monospace;
+  font-size: 11px;
+  text-align: right;
+  vertical-align: middle;
+  color: gray;
+  padding-right: 20px;
+}
+
+TABLE.toolbar TR TD.close {
+  text-align: right;
+  width: 80px;
+}
+
+
+TABLE.toolbar TR TD.close A {
+  font-weight: bold;
+  color: #565656;
+  text-decoration: none;
+  font-family: helvetica;
+  font-size: 11px;
+}
+TABLE.toolbar TR TD.close A:hover {
+  color: white;
+}
+
+TABLE.layout TR TD.content {
+  height: 100%;
+  border: 2px solid gray;
+  vertical-align: middle;
+  text-align: center;
+  border-top: 0px;
+}
+
+
+
+#variable-div {
+  font-family: Monaco, monospace;
+  font-size: 11px;
+  overflow: auto;
+  vertical-align: top;
+  text-align: left;
+  padding: 10px;
+  border: 1px solid #FFFFFF;
+}
+#variable-div  DIV      {
+  display: inline;
+}
+#variable-div DIV.pair {
+  display:block;
+  padding: 0px;
+  margin: 0px;
+}
+#variable-div DIV.value  {
+  display: inline-block;
+  float: top;
+  padding-left: 5px;
+}
+#variable-div DIV.value-block  {
+  display: block;
+  float: none;
+  margin-top: 0px;
+  padding-left: 10px;
+}
+#variable-div DIV.name,
+#variable-div DIV.name-block {
+  cursor:pointer;
+  display: inline-block;
+  float: left;
+  padding-left: 10px;
+}
+#variable-div DIV.name-block {
+  display: block;
+  padding-left: 10px;
+}
+#variable-div DIV.hide {
+  display: none;
+  padding-left: 5px;
+}
+#variable-div.loading { margin-left: 10px; background: url(chrome://firebug/skin/loading_16.gif) no-repeat; }
+#variable-div.nodata { margin-left: 10px; color: gray; }
+
+.internal-notice {
+  color: white;
+  background-color: blue;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.obj-vis-private-static {
+  background: url(chrome://firephp/skin/ObjectMemberVisibilityIcons.png) no-repeat -4px -2px;
+  padding-left: 12px;
+}
+.obj-vis-protected-static {
+  background: url(chrome://firephp/skin/ObjectMemberVisibilityIcons.png) no-repeat -4px -18px;
+  padding-left: 12px;
+}
+.obj-vis-public-static {
+  background: url(chrome://firephp/skin/ObjectMemberVisibilityIcons.png) no-repeat -4px -34px;
+  padding-left: 12px;
+}
+.obj-vis-undeclared-static {
+  background: url(chrome://firephp/skin/ObjectMemberVisibilityIcons.png) no-repeat -4px -50px;
+  padding-left: 12px;
+}
+
+.obj-vis-private {
+  background: url(chrome://firephp/skin/ObjectMemberVisibilityIcons.png) no-repeat -4px -66px;
+  padding-left: 12px;
+}
+.obj-vis-protected {
+  background: url(chrome://firephp/skin/ObjectMemberVisibilityIcons.png) no-repeat -4px -82px;
+  padding-left: 12px;
+}
+.obj-vis-public {
+  background: url(chrome://firephp/skin/ObjectMemberVisibilityIcons.png) no-repeat -4px -98px;
+  padding-left: 12px;
+}
+.obj-vis-undeclared {
+  background: url(chrome://firephp/skin/ObjectMemberVisibilityIcons.png) no-repeat -4px -114px;
+  padding-left: 12px;
+}

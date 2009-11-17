@@ -1,0 +1,6 @@
+.DS_Store
+.tmp_*
+.tmp/
+*.local.*
+/using/
+/build/

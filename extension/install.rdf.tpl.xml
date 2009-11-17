@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+    
+    <RDF:Description about="urn:mozilla:install-manifest">
+
+        <em:id>%%Extension.ID%%</em:id>
+        <em:name>%%Extension.Name%%</em:name>
+        <em:version>%%Version%%%%Release%%</em:version>
+        <em:type>2</em:type>
+    
+        <em:creator>%%Extension.Creator%%</em:creator>
+        <em:description>%%Extension.Description%%</em:description>
+
+        <em:homepageURL>%%Extension.HomepageURL%%</em:homepageURL>
+        <em:iconURL>%%Extension.IconURL%%</em:iconURL>
+        <em:optionsURL>%%Extension.OptionsURL%%</em:optionsURL>
+
+        <em:targetApplication>
+            <RDF:Description>
+                <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+                <em:maxVersion>3.5.*</em:maxVersion>
+                <em:minVersion>3.0</em:minVersion>
+            </RDF:Description>
+        </em:targetApplication>
+		
+        <!-- NOTE: Do not move these tags above <em:targetApplication>. It will break the registration process! -->
+        <em:updateURL>%%Extension.UpdateURL%%</em:updateURL>
+        <em:updateKey>%%Extension.UpdateKey%%</em:updateKey>
+        
+    </RDF:Description>
+</RDF>
