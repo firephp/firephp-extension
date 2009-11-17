@@ -1,4 +1,9 @@
 {
     "schema": "1.1",
-    "packages": {}
+    "packages": {
+        "nr-devtools": {
+            "catalog": "http://github.com/cadorn/narwhalrunner/raw/master/catalog.json",
+            "name": "devtools"
+        }
+    }
 }

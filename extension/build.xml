@@ -2,7 +2,7 @@
 
 <project name="org.FirePHP.Clients.LegacyFirefoxExtension" default="dev-launch" basedir=".">
 
-  <property name="build.package.path" value="${project.basedir}"/>
+  <property name="build.package.path" value="${project.basedir}/../"/>
 
   <target name="prepare">
 
@@ -11,7 +11,7 @@
 	  </php>
 		
 		<copy todir="${build.package.path}/build" overwrite="true">
-		  <fileset dir="${build.package.path}">
+		  <fileset dir="${project.basedir}">
 	         <include name="build.local.properties" />
 	         <include name="build.properties" />
 		  </fileset>
@@ -31,49 +31,7 @@
       
       <property name="package.instance.hash" value="${hash}"/>
 
-  </target>
-
-  <target name="dev-setup" depends="prepare">
-
-    <delete dir="${build.package.path}/build" includeemptydirs="true" verbose="false" failonerror="true" />
-    <mkdir dir="${build.package.path}/build" />
-
-    <exec command="${firefox.bin.path} -CreateProfile '${package.instance.hash} ${build.package.path}/build/FirefoxProfile'" passthru="true"/>
-
-    <echo file="${build.package.path}/build/FirefoxProfile/user.js" append="false">
-user_pref("javascript.options.showInConsole",true);
-user_pref("nglayout.debug.disable_xul_cache",true);
-user_pref("browser.dom.window.dump.enabled", true);
-user_pref("javascript.options.strict",true);
-user_pref("extensions.logging.enabled",true);
-user_pref("browser.tabs.warnOnClose", false);
-user_pref("browser.startup.homepage", "${firefox.homepage}");
-    </echo>
-
-    <!-- NOTE: We need to launch firefox once first before we can add extensions -->	
-	<phingcall target="dev-launch"/>
-	
-	<echo file="${build.package.path}/build/FirefoxProfile/extensions/${Extension.ID}" append="false">${build.package.path}/build/extension</echo>
-	
-	<if>
-	 <equals arg1="${firebug.extension.path}" arg2="" />
-	 <then>
-	   <echo message="Please manually install firebug" />
-	 </then>
-	 <else>
-        <echo file="${build.package.path}/build/FirefoxProfile/extensions/firebug@software.joehewitt.com" append="false">${firebug.extension.path}</echo>
-	 </else>
-	</if>
-			
-  </target>
-	
-  <target name="dev-launch" depends="build">
-
-    <exec command="${firefox.bin.path} -P ${package.instance.hash} -jsconsole -no-remote" passthru="true"/>
-
-  </target>
-	
-  
+  </target>  
 
   <target name="build" depends="prepare">
 

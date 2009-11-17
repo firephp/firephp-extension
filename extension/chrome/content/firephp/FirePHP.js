@@ -19,7 +19,8 @@ FBL.ns(function() { with (FBL) {
 
 const FB_NEW = (Firebug.version == '1.2'
                 || Firebug.version == '1.3'
-                || Firebug.version == '1.4')?true:false;
+                || Firebug.version == '1.4'
+                || Firebug.version == '1.5')?true:false;
 
 
 const Cc = Components.classes;

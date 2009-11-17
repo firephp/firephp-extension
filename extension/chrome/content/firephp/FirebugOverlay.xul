@@ -53,7 +53,7 @@ FBL.ns(function() { with (FBL) {
     </menupopup>
     
     
-    <toolbar id="fbToolbar">
+    <hbox id="fbPanelBar1-buttons">
 
         <toolbarbutton id="firephpMenu" type="menu" insertafter="fbFirebugMenu">
             
@@ -79,6 +79,7 @@ FBL.ns(function() { with (FBL) {
             
         </toolbarbutton>
 
-    </toolbar>
+    </hbox>
+
 
 </overlay>
