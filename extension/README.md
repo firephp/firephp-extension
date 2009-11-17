@@ -15,6 +15,12 @@ Running:
     phing -f extension/build.xml build
     nr launch --dev --app firefox --profile dev
 
+Publishing:
+
+    phing -f extension/build.xml dist
+    phing -f extension/build.xml upload
+    
+
 
 Firebug
 -------

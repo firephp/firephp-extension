@@ -4,6 +4,10 @@
 
   <property name="build.package.path" value="${project.basedir}/../"/>
 
+  <php function="realpath" returnProperty="build.package.path">
+    <param value="${build.package.path}"/>
+  </php>
+
   <target name="prepare">
 
 	  <php function="date" returnProperty="build.date.stamp">
@@ -163,7 +167,7 @@
     
     <exec command="${mccoy.bin.path} -sign 'file://${build.package.path}/build/dist/FirePHP-FirefoxExtension-${Version}${Release}.rdf' -key '${mccoy.key.name}' -hash 'sha1:${xpi.hash}' -addOnFileName '${build.package.path}/build/dist/FirePHP-FirefoxExtension-${Version}${Release}.xpi'" passthru="true"/>
   
-    <echo message="RUN: git tag LegacyFirefoxExtension-${Version}${Release}"/>
+    <echo message="RUN: git tag ${Version}${Release}"/>
   
   </target>
   
