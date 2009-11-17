@@ -1,0 +1,4 @@
+#!/bin/bash
+
+phing -f extension/build.xml build
+nr launch --dev --app firefox --profile dev-1.4
