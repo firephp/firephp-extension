@@ -1,4 +1,9 @@
 
+2009-11-17 - Release Version: 0.4.2
+
+  - (Issue 124) FirePHP 0.3.1 not working with Firebug 1.4.2+
+  - (Issue 126) FirePHP 0.3.1 does not work with Firebug 1.5a21
+
 2009-06-13 - Release Version: 0.3.1
 
   - (Issue 110) No console logging in iceweasel 3.0.6 with firebug 1.3.3.

@@ -22,6 +22,7 @@ const FB_NEW = (Firebug.version == '1.2'
                 || Firebug.version == '1.4'
                 || Firebug.version == '1.5')?true:false;
 
+const FB_NEW_EVENT_SEQUENCE = (Firebug.version == '1.5')?true:false;
 
 const Cc = Components.classes;
 const Ci = Components.interfaces;
@@ -157,15 +158,24 @@ var FirePHP = top.FirePHP = {
 
     if(DEBUG) dump("--> FirePHP.onResponseBody"+"\n");
       
-      
-//    if(Firebug.FirePHP.processQueOnWatchWindow) {
-      /* Process right away as context is already initialized */
+    
+    if(FB_NEW_EVENT_SEQUENCE) {
       Firebug.FirePHP._processRequest(file.href,
                                       FirePHP.parseHeaders(file.responseHeaders,'array'));
-//    } else {
-      /* Que processing until after context is initialized. This is for whenever a new page is loaded. */
-//      Firebug.FirePHP.queFile(file);
-//    }
+        
+    } else {
+          
+        if(Firebug.FirePHP.processQueOnWatchWindow) {
+          /* Process right away as context is already initialized */
+          Firebug.FirePHP._processRequest(file.href,
+                                          FirePHP.parseHeaders(file.responseHeaders,'array'));
+        } else {
+          /* Que processing until after context is initialized. This is for whenever a new page is loaded. */
+          Firebug.FirePHP.queFile(file);
+        }
+        
+    }
+      
   },
   
 
@@ -517,22 +527,22 @@ Firebug.FirePHP = extend(Firebug.Module,
   activeContext: null,
   activeBrowser: null,
   
-//  requestBuffer: [],
+  requestBuffer: [],
   
-//  processQueOnWatchWindow: false,
+  processQueOnWatchWindow: false,
 
   contextShowing: 0,
     
   enable: function()
   {
-//    this.requestBuffer = [];
+      this.requestBuffer = [];
 		FirePHP.enable();
   },
   
   disable: function()
   {
 		FirePHP.disable();
-//    this.requestBuffer = [];
+    this.requestBuffer = [];
   },		
 	
 
@@ -551,7 +561,7 @@ Firebug.FirePHP = extend(Firebug.Module,
 
     unmonitorContext(context);
     
-//    this.processQueOnWatchWindow = false;
+    this.processQueOnWatchWindow = false;
     this.contextShowing = 0;
   },
   
@@ -562,14 +572,16 @@ Firebug.FirePHP = extend(Firebug.Module,
     this.addStylesheets(true);
   },
   
-//  watchWindow: function(context, win)
-//  {
-//    if(DEBUG) dump("--> Firebug.FirePHP.watchWindow (processQueOnWatchWindow: "+this.processQueOnWatchWindow+")"+"\n");
-
-//    if (this.processQueOnWatchWindow) {
-//      this.processRequestQue();
-//    }
-//  },
+  watchWindow: function(context, win)
+  {
+    if(!FB_NEW_EVENT_SEQUENCE) {
+        if(DEBUG) dump("--> Firebug.FirePHP.watchWindow (processQueOnWatchWindow: "+this.processQueOnWatchWindow+")"+"\n");
+    
+        if (this.processQueOnWatchWindow) {
+          this.processRequestQue();
+        }
+    }
+  },
 //  unwatchWindow: function(context, win)
 //  {
 //    if(DEBUG) dump("--> Firebug.FirePHP.unwatchWindow"+"\n");
@@ -581,9 +593,14 @@ Firebug.FirePHP = extend(Firebug.Module,
     if(!FB_NEW || this.contextShowing>=1) {
       this.addStylesheets();
   
-//      this.processQueOnWatchWindow = true;
+      this.processQueOnWatchWindow = true;
+
+        if(!FB_NEW_EVENT_SEQUENCE) {
       
-//      this.processRequestQue();    
+            if(this.contextShowing>=2) {
+          this.processRequestQue();    
+            }
+        }
     }
   },
   
@@ -636,46 +653,45 @@ Firebug.FirePHP = extend(Firebug.Module,
     
   },
 	 
-/*
-	queRequest: function(Request) {
-    if(DEBUG) dump("--> Firebug.FirePHP.queRequest"+"\n");
-
-		var http = QI(Request, nsIHttpChannel);
-    var info = FirePHP.parseHeaders(http,'visit');
-    this.requestBuffer.push([Request.name,info]);
-    },
-
-	queFile: function(File) {
-    if(DEBUG) dump("--> Firebug.FirePHP.queFile ("+File.href+")"+"\n");
-
-    this.requestBuffer.push([File.href,FirePHP.parseHeaders(File.responseHeaders,'array')]);
-    },
-
-	processRequest: function(Request) {
-    if(DEBUG) dump("--> Firebug.FirePHP.processRequest"+"\n");
-
-		var url = Request.name;
-		var http = QI(Request, nsIHttpChannel);
-    var info = FirePHP.parseHeaders(http,'visit');
+  queRequest: function(Request) {
+        if(DEBUG) dump("--> Firebug.FirePHP.queRequest"+"\n");
     
-    this._processRequest(url,info);
-    },
-   
-   
-	processRequestQue: function() {
-    if(DEBUG) dump("--> Firebug.FirePHP.processRequestQue (requestBuffer: "+((this.requestBuffer)?'true':'false')+")"+"\n");
-
-    if(!this.requestBuffer) return;
-
-    for( var index in this.requestBuffer ) {
-      this._processRequest(this.requestBuffer[index][0],this.requestBuffer[index][1]);
-    }
-    this.requestBuffer = [];
-    }, 
-*/
+    		var http = QI(Request, nsIHttpChannel);
+        var info = FirePHP.parseHeaders(http,'visit');
+        this.requestBuffer.push([Request.name,info]);
+        },
+    
+    	queFile: function(File) {
+        if(DEBUG) dump("--> Firebug.FirePHP.queFile ("+File.href+")"+"\n");
+    
+        this.requestBuffer.push([File.href,FirePHP.parseHeaders(File.responseHeaders,'array')]);
+        },
+    
+    	processRequest: function(Request) {
+        if(DEBUG) dump("--> Firebug.FirePHP.processRequest"+"\n");
+    
+    		var url = Request.name;
+    		var http = QI(Request, nsIHttpChannel);
+        var info = FirePHP.parseHeaders(http,'visit');
+        
+        this._processRequest(url,info);
+        },
+       
+       
+    	processRequestQue: function() {
+        if(DEBUG) dump("--> Firebug.FirePHP.processRequestQue (requestBuffer: "+((this.requestBuffer)?'true':'false')+")"+"\n");
+    
+        if(!this.requestBuffer) return;
+    
+        for( var index in this.requestBuffer ) {
+          this._processRequest(this.requestBuffer[index][0],this.requestBuffer[index][1]);
+        }
+        this.requestBuffer = [];
+   }, 
 
   
 	_processRequest: function(url,info) {
+
     if(DEBUG) dump("--> Firebug.FirePHP._processRequest ("+url+")"+"\n");
     
     var mask = info['processorurl'];
