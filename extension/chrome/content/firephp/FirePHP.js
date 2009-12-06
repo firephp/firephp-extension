@@ -690,180 +690,107 @@ Firebug.FirePHP = extend(Firebug.Module,
    }, 
 
   
-	_processRequest: function(url,info) {
-
-    if(DEBUG) dump("--> Firebug.FirePHP._processRequest ("+url+")"+"\n");
-    
-    var mask = info['processorurl'];
-    var data = info['data'];
-    var wildfire =  info['plugin'];
-
-		var domain = getDomain(mask);
-    
-		if(data || wildfire.hasMessages()) {
-			if(!mask) {
-				mask = 'chrome://firephp/content/RequestProcessor.js';
-			} else {
-  			if(!FirePHP.isURIAllowed(domain)) {
-          this.logWarning(['By default FirePHP is not allowed to load your custom processor from "'+mask+'". You can allow this by going to the "Net" panel and clicking on the "Server" tab for this request.']);
-  				mask = 'chrome://firephp/content/RequestProcessor.js';
+    _processRequest: function(url,info) {
+        
+        if(DEBUG) dump("--> Firebug.FirePHP._processRequest ("+url+")"+"\n");
+        
+        var data = info['data'];
+        var wildfire =  info['plugin'];
+        
+        if(!data && !wildfire.hasMessages()) {
+            return;
         }
-      }
-			
-			if(!this.FirePHPProcessor) {
-				this.FirePHPProcessor = function() {
-					return {
-					  initialized: false,
-            consoleStylesheets: [],
-            consoleTemplates: [],
-            sourceURL: null,
-						_Init: function() {
-							if(this.initialized) return;
-              try {
-  							this.Init();
-  							this.initialized = true;
-              } catch(e) {
-              }           
-						},
-						Init : function() {
-						},
-						ProcessRequest: function() {
-						},
-            RegisterConsoleStyleSheet: function(URL) {
-              this.consoleStylesheets[URL] = true;
-            },
-            RegisterConsoleTemplate: function(Name,Template) {
-              this.consoleTemplates[Name] = Template;
-            },
-						logToFirebug: function(TemplateName, Data, UseFirebugTemplates, Meta) {
-              var oo = false;
-              FirePHP.isLoggingData = true;
-              if (this.consoleTemplates[TemplateName]) {
-                oo = Firebug.Console.logRow(function(object, row, rep)
-                  {
-                    return rep.tag.append({object: object, meta:Meta}, row);
-                  }, Data, this.activeContext, this.consoleTemplates[TemplateName].className, this.consoleTemplates[TemplateName], null, false);
-              } else
-              if(UseFirebugTemplates) {
-
-            	  oo = Firebug.Console.logFormatted([Data], this.activeContext, TemplateName, false, null);
-              
-              } else {
-                
-                // If no custom template is requested we use FirePHP templates
-                // If data is a string just use a simple text renderer
-
-                var rep = FirebugReps.PHPVariable;
-                var firePHPRep = FirePHP.getRep(Data);
-                if(firePHPRep==FirebugReps.FirePHPString) {
-                  rep = FirebugReps.FirePHPText;
-                } else
-                if(firePHPRep==FirebugReps.FirePHPBoolean) {
-                  rep = firePHPRep;
-                } else
-                if(firePHPRep==FirebugReps.FirePHPNumber) {
-                  rep = firePHPRep;
-                }
-  
-                oo = Firebug.Console.logRow(function(object, row, rep)
-                  {
-                    return rep.tag.append({object: object, meta:Meta}, row);
-                  }, Data, this.activeContext, TemplateName, rep, null, false);
-                
-//            	  oo = Firebug.Console.logFormatted([Data], this.activeContext, TemplateName, false, null);
-              }
-              FirePHP.isLoggingData = false;
-              return oo;
-						}
-					}
-				}();
-			}
-			
-			var proecessor_context = {FirePHPProcessor: this.FirePHPProcessor,
-										 Firebug: Firebug,
-										 data: data,
-                     wildfire: wildfire,
-										 context: this.activeContext,
-										 url: url};
-
-      /* Check if the processor to be loaded is the current processor.
-       * If it is we do not re-load the processor
-       */
-      
-      if (this.FirePHPProcessor.sourceURL == mask &&
-          this.FirePHPProcessor.initialized) {
-
-        with (proecessor_context) {
-          FirePHPProcessor.data = data;
-          FirePHPProcessor.context = proecessor_context.context;
-
-          try {
-            eval(FirePHPProcessor.code);
             
-            FirePHPProcessor.ProcessRequest(wildfire,url,data);
-          } 
-          catch (e) {
-            Firebug.FirePHP.logWarning(['Error executing custom FirePHP processor!', e]);
-          }
+        if(!this.FirePHPProcessor) {
+            this.FirePHPProcessor = function() {
+                return {
+                    initialized: false,
+                    consoleStylesheets: [],
+                    consoleTemplates: [],
+                    sourceURL: null,
+                    _Init: function() {
+                        if(this.initialized) return;
+                        try {
+                            this.Init();
+                            this.initialized = true;
+                        } catch(e) {
+                        }           
+                    },
+                    Init : function() {},
+                    ProcessRequest: function() {},
+                    RegisterConsoleStyleSheet: function(URL) {
+                        this.consoleStylesheets[URL] = true;
+                    },
+                    RegisterConsoleTemplate: function(Name,Template) {
+                        this.consoleTemplates[Name] = Template;
+                    },
+                    logToFirebug: function(TemplateName, Data, UseFirebugTemplates, Meta) {
+
+                        var oo = false;
+
+                        FirePHP.isLoggingData = true;
+
+                        if (this.consoleTemplates[TemplateName]) {
+                            oo = Firebug.Console.logRow(function(object, row, rep) {
+                                return rep.tag.append({object: object, meta:Meta}, row);
+                            }, Data, this.activeContext, this.consoleTemplates[TemplateName].className, this.consoleTemplates[TemplateName], null, false);
+                        } else
+                        if(UseFirebugTemplates) {
+                        
+                            oo = Firebug.Console.logFormatted([Data], this.activeContext, TemplateName, false, null);
+                        
+                        } else {
+                        
+                            // If no custom template is requested we use FirePHP templates
+                            // If data is a string just use a simple text renderer
+                            
+                            var rep = FirebugReps.PHPVariable;
+                            var firePHPRep = FirePHP.getRep(Data);
+                            if(firePHPRep==FirebugReps.FirePHPString) {
+                                rep = FirebugReps.FirePHPText;
+                            } else
+                            if(firePHPRep==FirebugReps.FirePHPBoolean) {
+                                rep = firePHPRep;
+                            } else
+                            if(firePHPRep==FirebugReps.FirePHPNumber) {
+                                rep = firePHPRep;
+                            }
+                            
+                            oo = Firebug.Console.logRow(function(object, row, rep) {
+                                return rep.tag.append({object: object, meta:Meta}, row);
+                            }, Data, this.activeContext, TemplateName, rep, null, false);
+                        }
+                        FirePHP.isLoggingData = false;
+                        return oo;
+                    }
+                }
+            }();
         }
         
-      } else {
+        var proecessor_context = {
+            FirePHPProcessor: this.FirePHPProcessor,
+            Firebug: Firebug,
+            data: data,
+            wildfire: wildfire,
+            context: this.activeContext,
+            url: url
+        };
+        
+        proecessor_context.FirePHPProcessor.data = data;
+        proecessor_context.FirePHPProcessor.context = proecessor_context.context;
 
-        FirePHPLib.ajax({
-          type: 'GET',
-          url: mask,
-          success: function(ReturnData){
-            with (proecessor_context) {
-              FirePHPProcessor.sourceURL = mask;
-              FirePHPProcessor.data = data;
-              FirePHPProcessor.context = proecessor_context.context;
-              FirePHPProcessor.code = ReturnData;
-              
-              try {
-                eval(ReturnData);
-                
-                FirePHPProcessor._Init();
-                FirePHPProcessor.ProcessRequest(wildfire,url,data);
-              } 
-              catch (e) {
-                Firebug.FirePHP.logWarning(['Error executing custom FirePHP processor!', e]);
-              }
-            }
+        try {
             
-          },
-          error: function(XMLHttpRequest){
-            if (mask.substr(0, 9) == 'chrome://') {
+            FirePHP.augmentFirePHPProcessor(proecessor_context);
 
-              with (proecessor_context) {
-                FirePHPProcessor.sourceURL = mask;
-                FirePHPProcessor.data = data;
-                FirePHPProcessor.context = proecessor_context.context;
-                FirePHPProcessor.code = XMLHttpRequest.responseText;
-                
-                try {
-
-                  eval(XMLHttpRequest.responseText);
-                  
-                  FirePHPProcessor._Init();
-                  FirePHPProcessor.ProcessRequest(wildfire,url,data);
-                } 
-                catch (e) {
-                  Firebug.FirePHP.logWarning(['Error executing default FirePHP processor!', e]);
-                }
-              }
-              
+            if(!proecessor_context.FirePHPProcessor.initialized) {
+                proecessor_context.FirePHPProcessor._Init();
             }
-            else {
-            
-              this.logWarning('Error loading processor from: ' + mask);
-              
-            }
-          }
-        });
-      }
-		}
-		
-	},
+            proecessor_context.FirePHPProcessor.ProcessRequest(wildfire,url,data);
+        } catch (e) {
+            Firebug.FirePHP.logWarning(['Error executing custom FirePHP processor!', e]);
+        }
+    },
   
   logWarning: function(args)
   {

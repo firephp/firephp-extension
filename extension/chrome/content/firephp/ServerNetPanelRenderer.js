@@ -5,6 +5,12 @@
  * 
  * ***** END LICENSE BLOCK ***** */
 
+FBL.ns(function() { with (FBL) {
+
+top.FirePHP.runServerNetPanelRenderer = function(context) {
+with(context) {
+
+
 function IsNumeric(sText) {
   
   if(sText=='') return false;
@@ -257,3 +263,8 @@ FirePHPRenderer.InitRequest = function(Key) {
   });
 }
 
+
+}
+};
+
+}});

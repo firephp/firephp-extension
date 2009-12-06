@@ -16,6 +16,8 @@
   <script type="application/x-javascript" src="chrome://firephp/content/Wildfire/Protocol/JsonStream-0.2.js"/>
   <script type="application/x-javascript" src="chrome://firephp/content/Wildfire/Plugin/FirePHP.js"/>
   <script type="application/x-javascript" src="chrome://firephp/content/FirePHP.js"/>
+  <script type="application/x-javascript" src="chrome://firephp/content/RequestProcessor.js"/>
+  <script type="application/x-javascript" src="chrome://firephp/content/ServerNetPanelRenderer.js"/>
   <script type="application/x-javascript" src="chrome://firephp/content/FirebugNetOverride.js"/>
   <script type="application/x-javascript" src="chrome://firephp/content/reps.js"/>
 

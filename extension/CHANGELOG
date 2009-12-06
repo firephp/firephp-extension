@@ -1,4 +1,8 @@
 
+2009-12-05 - Release Version: 0.4.3
+
+  - Removed use of eval() which resulted in the removal of the custom request processor and renderer features
+
 2009-11-17 - Release Version: 0.4.2
 
   - (Issue 124) FirePHP 0.3.1 not working with Firebug 1.4.2+

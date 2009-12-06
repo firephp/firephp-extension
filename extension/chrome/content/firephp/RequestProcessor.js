@@ -5,6 +5,11 @@
  * 
  * ***** END LICENSE BLOCK ***** */
 
+FBL.ns(function() { with (FBL) {
+
+top.FirePHP.augmentFirePHPProcessor = function(context) {
+with(context) {
+    
 FirePHPProcessor.Init = function() {
 
   this.RegisterConsoleStyleSheet('chrome://firephp/content/RequestProcessor.css');
@@ -393,7 +398,7 @@ FirePHPProcessor.Init = function() {
 
 
   
-}
+};
 
 
 /* 
@@ -469,7 +474,7 @@ FirePHPProcessor.ProcessRequest = function(Wildfire,URL,Data) {
     Firebug.Console.closeGroup();
     
   }
-}
+};
 
 
 
@@ -536,4 +541,9 @@ FirePHPProcessor.processMessage = function(mode, data, meta) {
     
     this.logToFirebug(mode, data, false, meta);
   }
+};
+
 }
+};
+
+}});

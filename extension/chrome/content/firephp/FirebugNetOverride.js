@@ -1008,75 +1008,19 @@ function netInfoServerTab(netInfoBox, file, context, responseTextBox) {
 		if(url) {
       
       var info = FirePHP.parseHeaders(file.responseHeaders,'array');
-      var mask = info['rendererurl'];
       var data = info['data'];
       var wildfire =  info['plugin'];
       
-			var hash = hex_md5(item_index+':'+url);
+		var hash = hex_md5(item_index+':'+url);
       
-      if(!mask) {
-    		mask = 'chrome://firephp/content/ServerNetPanelRenderer.js';
-      }
-                    
-    	if(info['rendererurl'] || info['processorurl']) {
-        
-        var rendererurl_domain = '';
-        var processorurl_domain = '';
-        var rendererurl_allowed = false;
-        var processorurl_allowed = false;
 
-        if(info['rendererurl']) {
-          rendererurl_domain = FBL.getDomain(info['rendererurl']);
-          rendererurl_allowed = top.FirePHP.isURIAllowed(rendererurl_domain);
-        } else {
-          rendererurl_allowed = true;
-        }
-        if(info['processorurl']) {
-          processorurl_domain = FBL.getDomain(info['processorurl']);
-          processorurl_allowed = top.FirePHP.isURIAllowed(processorurl_domain);
-        } else {
-          processorurl_allowed = true;
-        }
-                    
-				if( rendererurl_allowed && processorurl_allowed ) {
-          
-					if(data || wildfire.hasMessages()) {
-            parseAndPrintData(wildfire, data, mask, responseTextBox,netInfoBox.ownerDocument,hash);
-					} else {
-						responseTextBox.innerHTML = '"X-FirePHP-Data" response header not found in request response!';
-					}
-          
-				} else {
-          var msg = '<p>By default FirePHP is not allowed to load custom renderers nor processors.</p>';
-          if(!rendererurl_allowed) {
-					  msg += '<p>To allow custom loading from host <b>'+rendererurl_domain+'</b> <a onclick="top.FirePHP.enableSite(\''+rendererurl_domain+'\'); alert(\'Custom loading for FirePHP has been enabled for host '+rendererurl_domain+' and will start working with the next request!\');" href="#">click here</a>.</p>';
-          }
-          if(!processorurl_allowed && processorurl_domain!=rendererurl_domain) {
-					  msg += '<p>To allow custom loading from host <b>'+processorurl_domain+'</b> <a onclick="top.FirePHP.enableSite(\''+processorurl_domain+'\'); alert(\'Custom loading for FirePHP has been enabled for host '+processorurl_domain+' and will start working with the next request!\');" href="#">click here</a>.</p>';
-          }
-					msg += '<p><font color="red"><b>WARNING:</b> FirePHP customizing works by allowing a server script to insert code into your browser. <b>Only enable this for hosts you trust!</b> If enabled for a malicious host your browser may be hijacked!</font></p>';
-					msg += '<p>FirePHP is distributed subject to the New BSD License.<br><br>';
-					msg += 'THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND<br>';
-					msg += 'ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED<br>';
-					msg += 'WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE<br>';
-					msg += 'DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR<br>';
-					msg += 'ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES<br>';
-					msg += '(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;<br>';
-					msg += 'LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON<br>';
-					msg += 'ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT<br>';
-					msg += '(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS<br>';
-					msg += 'SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.<br><br>';
-					msg += 'You can view the License at <a target="_blank" href="http://www.opensource.org/licenses/bsd-license.php">http://www.opensource.org/licenses/bsd-license.php</a>.</p>';
-					responseTextBox.innerHTML = msg;													
-				}                
+    	if(data || wildfire.hasMessages()) {
+            parseAndPrintData(wildfire, data, null, responseTextBox,netInfoBox.ownerDocument,hash);
     	} else {
-				if(data || wildfire.hasMessages()) {
-          parseAndPrintData(wildfire, data, mask, responseTextBox,netInfoBox.ownerDocument,hash);
-				} else {
-					responseTextBox.innerHTML = '<span style="color: gray;">No FirePHP data found in response headers</span>';
-				}
-      }
-		}	
+    		responseTextBox.innerHTML = '<span style="color: gray;">No FirePHP data found in response headers</span>';
+    	}
+      
+    }	
 }
 
 
@@ -1103,11 +1047,13 @@ function parseAndPrintData(wildfire, Data, Mask, responseTextBox,doc,hash) {
 		}();
 	}
 	
-	var context = {document:doc,
-								 window:doc.defaultView,
-								 key:'k'+hash,
-                 wildfire: wildfire,
-								 FirePHPRenderer:doc.defaultView.FirePHPRenderer};
+	var context = {
+        document:doc,
+		window:doc.defaultView,
+		key:'k'+hash,
+        wildfire: wildfire,
+		FirePHPRenderer:doc.defaultView.FirePHPRenderer
+    };
 		
 	with(context) {
 	
@@ -1150,53 +1096,27 @@ function parseAndPrintData(wildfire, Data, Mask, responseTextBox,doc,hash) {
 			$ = window.$;
 		}				
 	}
-	
-	
-	FirePHPLib.ajax({
-		type: "GET",
-		url: Mask,
-		success: function(ReturnData){
-			context.html = '';
-			context.data = Data;
-      
-      try {
-      
-  			with(context) {
-					eval(ReturnData);
-  			}
-
-    		responseTextBox.innerHTML = context.html;
-
-    		with(context) {
-    			FirePHPRenderer._Init();
-    			$ = window.$;
-    			FirePHPRenderer.InitRequest(key);
-    		}
-
-      } catch(e) {
+    
+    
+    context.html = '';
+    context.data = Data;
+    
+    try {
+    
+        top.FirePHP.runServerNetPanelRenderer(context);
+        
+        responseTextBox.innerHTML = context.html;
+        
+        with(context) {
+            FirePHPRenderer._Init();
+            $ = window.$;
+            FirePHPRenderer.InitRequest(key);
+        }
+        
+    } catch(e) {
         Firebug.FirePHP.logFormatted(['Error executing custom FirePHP renderer!',e],'warn');  
         responseTextBox.innerHTML = '<font color="red"><b>Error executing custom FirePHP renderer!</b></font>';
-      }
-		},
-		error: function(XMLHttpRequest){
-			if(Mask.substr(0,9)=='chrome://') {
-				context.html = '';
-				context.data = Data;
-        
-				with(context) {
-					eval(XMLHttpRequest.responseText);
-				}
-				responseTextBox.innerHTML = context.html;
-				with(context) {
-					FirePHPRenderer._Init();
-					$ = window.$;
-					FirePHPRenderer.InitRequest(key);
-				}
-			} else {
-				responseTextBox.innerHTML = 'Error loading renderer from: '+Mask;
-			}
-		}
-	});
+    }
 }
 
 
