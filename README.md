@@ -2,7 +2,57 @@
 0.x FirePHP Extension
 =====================
 
-This is the code for the Firefox Extension currently live at [http://www.firephp.org/](http://www.firephp.org/).
+This is the code for the FirePHP Firefox Extension currently live at [http://www.firephp.org/](http://www.firephp.org/).
+
+A new version of FirePHP (1.0) now known as FireConsole is under development at: http://www.fireconsole.org/Alpha/
+
+Mailing List
+------------
+
+http://groups.google.com/group/firephp-dev
+
+
+Bug Reports
+-----------
+
+In the past FirePHP issues have been reported at: http://code.google.com/p/firephp/issues/list
+
+The project has moved from GoogleCode to github. Please report new issues to:
+
+Extension Issues: http://github.com/cadorn/firephp-extension/issues
+
+FirePHPCore Server Library Issues: http://github.com/cadorn/firephp-libs/issues
+
+
+Feature Requests
+----------------
+
+For discussion please post to: http://groups.google.com/group/firephp-dev
+
+To keep track of it create an issue at: http://code.google.com/p/firephp/issues/list
+
+The feature requests will be moved from the google code issue tracker to various new projects in future.
+
+
+Server Libraries
+----------------
+
+You need a server library to send data to FirePHP.
+
+The FirePHPCore server library project is here: http://github.com/cadorn/firephp-libs
+
+Additional libraries and framework integrations can be found here: http://www.firephp.org/Wiki/Libraries/FirePHPCore
+
+
+Dev Setup
+=========
+
+Requirements
+------------
+
+  * [Firefox 3.6+](http://www.mozilla.com/en-US/firefox/)
+  * [PINF](http://github.com/cadorn/pinf) *(NOTE: There is no release for PINF yet. Will be coming very soon.)*.
+
 
 
 License
@@ -10,7 +60,7 @@ License
 
 Software License Agreement (New BSD License)
 
-Copyright (c) 2006-2009, Christoph Dorn
+Copyright (c) 2006-2010, Christoph Dorn
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification,

@@ -1,6 +1,16 @@
 {
+    "uid": "http://registry.pinf.org/cadorn.org/github/firephp-extension/",
     "name": "firephp-extension",
-    "dependencies": [
-        "narwhal"
-    ]
+    "author": "Christoph Dorn (http://www.christophdorn.com/)",
+    "repositories": [
+        {
+            "type": "git",
+            "url": "git://github.com/cadorn/firephp-extension.git"
+        }
+    ],
+    "pinf": {
+        "builder": {
+            "module": "builder"
+        }
+    }
 }
