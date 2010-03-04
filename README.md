@@ -19,17 +19,17 @@ In the past FirePHP issues have been reported at: http://code.google.com/p/firep
 
 The project has moved from GoogleCode to github. Please report new issues to:
 
-Extension Issues: http://github.com/cadorn/firephp-extension/issues
+Extension Issues: [http://github.com/cadorn/firephp-extension/issues](http://github.com/cadorn/firephp-extension/issues)
 
-FirePHPCore Server Library Issues: http://github.com/cadorn/firephp-libs/issues
+FirePHPCore Server Library Issues: [http://github.com/cadorn/firephp-libs/issues](http://github.com/cadorn/firephp-libs/issues)
 
 
 Feature Requests
 ----------------
 
-For discussion please post to: http://groups.google.com/group/firephp-dev
+For discussion please post to: [http://groups.google.com/group/firephp-dev](http://groups.google.com/group/firephp-dev)
 
-To keep track of it create an issue at: http://code.google.com/p/firephp/issues/list
+To keep track of it create an issue at: [http://code.google.com/p/firephp/issues/list](http://code.google.com/p/firephp/issues/list)
 
 The feature requests will be moved from the google code issue tracker to various new projects in future.
 
@@ -39,9 +39,9 @@ Server Libraries
 
 You need a server library to send data to FirePHP.
 
-The FirePHPCore server library project is here: http://github.com/cadorn/firephp-libs
+The FirePHPCore server library project is here: [http://github.com/cadorn/firephp-libs](http://github.com/cadorn/firephp-libs)
 
-Additional libraries and framework integrations can be found here: http://www.firephp.org/Wiki/Libraries/FirePHPCore
+Additional libraries and framework integrations can be found here: [http://www.firephp.org/Wiki/Libraries/FirePHPCore](http://www.firephp.org/Wiki/Libraries/FirePHPCore)
 
 
 Dev Setup
