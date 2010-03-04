@@ -1,4 +1,15 @@
 
+  - (Issue 135) FirePHP 0.4.3 with Firebug 1.5 changes user agent on the fly
+  - (Issue 138) Redirect "dump" to "log" in extension
+  - (Issue 137) Remove advertised support for Firefox 3.0 on FirePHP 0.4.x branch
+  - Removed Server tab in Net panel requests
+  - Firebug compatibility notifications
+  - Notification to remind about enabling net panel
+  - Option to not modify user-agent
+  - Option to show variable viewer on click
+  - Added FAQs link to menus
+  - Removed "Allowed Sites"
+
 2009-12-05 - Release Version: 0.4.3
 
   - Removed use of eval() which resulted in the removal of the custom request processor and renderer features
@@ -28,7 +39,7 @@
 2008-10-23 - Release Version: 0.2.1
 
   - Bugfix to allow data headers in any order
-	- Added support for Firebug 1.3
+  - Added support for Firebug 1.3
 
 2008-10-20 - Release Version: 0.2.0
 
@@ -78,9 +89,9 @@
 2008-08-24 - Release Version: 0.1.1.2
 
   - (Issue 15) FirePHP does not display messages in the console with latest version of Firebug
-	- (Issue 10) Prevent "not well-formed error" in JS console when loading processor and renderer
-	- (Issue 14) Updated wildfire protocol to wrap header message values with "|"
-	- Updated Net panel override to make it consistent with latest changes in fb 1.2
+  - (Issue 10) Prevent "not well-formed error" in JS console when loading processor and renderer
+  - (Issue 14) Updated wildfire protocol to wrap header message values with "|"
+  - Updated Net panel override to make it consistent with latest changes in fb 1.2
 
 2008-07-31 - Release Version: 0.1.1.1
 2008-07-31 - Release Version: 0.1.1

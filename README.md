@@ -52,6 +52,36 @@ Requirements
 
   * [Firefox 3.6+](http://www.mozilla.com/en-US/firefox/)
   * [PINF](http://github.com/cadorn/pinf) *(NOTE: There is no release for PINF yet. Will be coming very soon.)*.
+  * [Phing](http://phing.info/trac/wiki/Users/Download)
+
+Install
+-------
+
+Checkout the workspace and switch to it:
+
+    pinf checkout-workspace -s github.com/cadorn/firephp-extension
+
+Make sure you have a firefox binary registered:
+
+    nr add-bin /Applications/Firefox.app/Contents/MacOS/firefox-bin
+
+Create a firefox profile. Install [Firebug 1.5+](http://getfirebug.com/) before closing the browser again.
+
+    nr create-profile --dev master
+
+To add a source version of Firebug instead use:
+
+    nr add-extension -l --profile master /path/to/extension/root
+
+Add the firefox extension to the profile:
+
+    nr add-extension -l --profile master .
+
+Launch the profile:
+
+    nr launch --dev --profile master
+
+
 
 
 

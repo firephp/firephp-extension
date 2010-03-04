@@ -17,12 +17,9 @@ if(externalMode) {
 
 FBL.ns(function() { with (FBL) {
 
-const FB_NEW = (Firebug.version == '1.2'
-                || Firebug.version == '1.3'
-                || Firebug.version == '1.4'
-                || Firebug.version == '1.5')?true:false;
+const FB_NEW = true;
 
-const FB_NEW_EVENT_SEQUENCE = (Firebug.version == '1.5')?true:false;
+const FB_NEW_EVENT_SEQUENCE = true; // FB 1.5+
 
 const Cc = Components.classes;
 const Ci = Components.interfaces;
@@ -59,7 +56,8 @@ const firephpURLs =
     docs: "http://www.firephp.org/HQ/Use.htm",
     discuss: "http://www.firephp.org/HQ/Help.htm",
     issues: "http://code.google.com/p/firephp/issues/list",
-    donate: "http://www.firephp.org/HQ/Contribute.htm?Trigger=Donate"
+    donate: "http://www.firephp.org/HQ/Contribute.htm?Trigger=Donate",
+    faq: "http://www.firephp.org/Wiki/Reference/FAQ"
 };
 
 
@@ -69,6 +67,7 @@ const prefs = PrefService.getService(nsIPrefBranch2);
 const pm = PermManager.getService(nsIPermissionManager);
 
 const DEBUG = false;
+const FIREBUG_MIN_VERSION = "1.5";
 
 
 var FirePHP = top.FirePHP = {
@@ -83,27 +82,50 @@ var FirePHP = top.FirePHP = {
   
   /* This variable is only used for ff2 */
   enabled: false,
-
+  
   initialize: function() {
-    
-    var currentVersion = FirePHP.getPref(FirePHP.prefDomain,'currentVersion');
-    var previousVersion = FirePHP.getPref(FirePHP.prefDomain,'previousVersion');
-    if(currentVersion!=FirePHP.version) {
 
-      var url = '';
-      if(previousVersion) {
-        url = "http://www.firephp.org/HQ/Contribute.htm?Trigger=Upgrade";
-      } else {
-        url = "http://www.firephp.org/HQ/Install.htm?Trigger=Install";
-      }
-
-      setTimeout(function() {
-                   openNewTab(url);
-                 },2000);
-
-      FirePHP.setPref(FirePHP.prefDomain,'previousVersion',''+currentVersion);
-      FirePHP.setPref(FirePHP.prefDomain,'currentVersion',''+FirePHP.version);
+    // For development
+    if(this.version=="%%Version%%") {
+        this.version = "0.4";
     }
+
+    var onLoadHandler = function(event) {
+        document.removeEventListener("load", onLoadHandler, true);
+
+        if(!FirePHP.getPref(FirePHP.prefDomain,'panelTipShowed')) {    
+            showNotification("firephp-enable-firebug-panels");
+            FirePHP.setPref(FirePHP.prefDomain,'panelTipShowed', true);
+        }
+        
+        var version = Firebug.version.replace(/X/, "");
+        var result = Cc["@mozilla.org/xpcom/version-comparator;1"].getService(Ci.nsIVersionComparator).compare(version, FIREBUG_MIN_VERSION);
+        if(result<0) {
+            FirePHP.setPref(FirePHP.prefDomain, "enabled", false);
+            showNotification("firephp-upgrade-firebug");
+        }
+
+        var currentVersion = FirePHP.getPref(FirePHP.prefDomain,'currentVersion');
+        var previousVersion = FirePHP.getPref(FirePHP.prefDomain,'previousVersion');
+        if(currentVersion!=FirePHP.version) {
+    
+          var url = '';
+          if(previousVersion) {
+            url = "http://www.firephp.org/HQ/Contribute.htm?Trigger=Upgrade";
+          } else {
+            url = "http://www.firephp.org/HQ/Install.htm?Trigger=Install";
+          }
+    
+          setTimeout(function() {
+                       openNewTab(url);
+                     },2000);
+    
+          FirePHP.setPref(FirePHP.prefDomain,'previousVersion',''+currentVersion);
+          FirePHP.setPref(FirePHP.prefDomain,'currentVersion',''+FirePHP.version);
+        }
+    };
+    document.addEventListener("load", onLoadHandler, true);
+    
   },
   
   getPreviousVersion: function() {
@@ -126,7 +148,7 @@ var FirePHP = top.FirePHP = {
     
     this.enabled = false;
     
-    /* Enable the FirePHP Service Component to set the multipart/firephp accept header */  
+    /* Disable the FirePHP Service Component to set the multipart/firephp accept header */  
     observerService.removeObserver(this, "http-on-modify-request");
       
     Firebug.NetMonitor.removeListener(this);
@@ -184,8 +206,8 @@ var FirePHP = top.FirePHP = {
     return FirePHP.getPref(FirePHP.prefDomain, "enabled");
     
   },
-  
-    
+
+
   observe: function(subject, topic, data)
   {
     if (topic == "http-on-modify-request") {
@@ -196,10 +218,14 @@ var FirePHP = top.FirePHP = {
        */
 
       if(httpChannel.getRequestHeader("User-Agent").match(/\sFirePHP\/([\.|\d]*)\s?/)==null) {
-        if (this.isEnabled()) {
+        if (this.isEnabled() && FirePHP.getPref(FirePHP.prefDomain,'modifyua')) {
           httpChannel.setRequestHeader("User-Agent",httpChannel.getRequestHeader("User-Agent") + ' '+
             "FirePHP/" + this.version, false);
         }
+      }
+
+      if (this.isEnabled() && !FirePHP.getPref(FirePHP.prefDomain,'modifyua')) {
+          httpChannel.setRequestHeader("X-FirePHP-Version", FirePHP.version, false);
       }
       
       /* Add some info about FirePHP and Firebug into a header to be sent to FirePHP
@@ -218,7 +244,7 @@ var FirePHP = top.FirePHP = {
           break;
       }
     }
-  },  
+  },
 		
   isURIAllowed: function(host)
   {
@@ -369,7 +395,11 @@ var FirePHP = top.FirePHP = {
 
   },
   
-  showVariableInspectorOverlay: function(object,pinned) {
+  showVariableInspectorOverlay: function(object, pinned) {
+    
+    if(FirePHP.getPref(FirePHP.prefDomain,'clickforvv') && !pinned) {
+        return;
+    }
     
     if(this.inspectorPinned && !pinned) {
       return; 
@@ -828,10 +858,8 @@ Firebug.FirePHP = extend(Firebug.Module,
               var option = child.getAttribute("option");
               if (option)
               {
-                  if(option=='enabled') {
-                    var checked = FirePHP.getPref(FirePHP.prefDomain, option);
-                    child.setAttribute("checked", checked);
-                  }
+                 var checked = FirePHP.getPref(FirePHP.prefDomain, option);
+                 child.setAttribute("checked", checked);
               }
           }
       }
@@ -850,10 +878,13 @@ Firebug.FirePHP = extend(Firebug.Module,
           
           if(!Firebug.NetMonitor.isEnabled(Firebug.FirePHP.activeContext) ||
              !Firebug.Console.isEnabled(Firebug.FirePHP.activeContext)) {
-                
-            alert('You must have the Firebug Console and Net panels enabled to use FirePHP!');                
+
+             showNotification("firephp-enable-firebug-panels");
           }
         }
+      }
+      if(option=="modifyua" && !checked) {
+         showNotification("firephp-no-uamodify");
       }
   },
 
@@ -871,6 +902,46 @@ Firebug.FirePHP = extend(Firebug.Module,
   
     		   
 });
+
+
+
+
+function showNotification(name) {
+
+    var nb = gBrowser.getNotificationBox();
+    
+    if(name=="firephp-enable-firebug-panels") {
+        nb.appendNotification("Make sure you have the Firebug Console and Net panels enabled to use FirePHP!",
+            name,
+            'chrome://firephp/skin/FirePHP_16.png',
+             nb.PRIORITY_INFO_HIGH)
+    } else
+    if(name=="firephp-no-uamodify") {
+        nb.appendNotification("You have asked FirePHP not to modify the User-Agent. For this to work you must be using a recent server library.",
+            name,
+            'chrome://firephp/skin/FirePHP_16.png',
+             nb.PRIORITY_CRITICAL_HIGH, [{
+                label: 'More Info',
+                callback: function() {
+                    openNewTab(firephpURLs["faq"])
+                }
+            }]
+        );
+    } else
+    if(name=="firephp-upgrade-firebug") {
+        nb.appendNotification("You need Firebug 1.5+ to use FirePHP!",
+            name,
+            'chrome://firephp/skin/FirePHP_16.png',
+             nb.PRIORITY_CRITICAL_HIGH, [{
+                label: 'Install',
+                callback: function() {
+                    openNewTab("http://www.getfirebug.com/")
+                }
+            }]
+        );
+        
+    }
+}
 
 
 

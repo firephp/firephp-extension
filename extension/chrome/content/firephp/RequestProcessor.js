@@ -447,16 +447,16 @@ FirePHPProcessor.ProcessRequest = function(Wildfire,URL,Data) {
       if(Wildfire.hasMessages()) {
            
         var messages = Wildfire.getMessages('http://meta.firephp.org/Wildfire/Structure/FirePHP/FirebugConsole/0.1');
-        
+
         if(messages && messages.length>0) {
           
-          var peers = Wildfire.getPeerPlugins();
-          for( var peer_uri in peers ) {
-            if(FirePHPLib.isVersionNewer(peers[peer_uri].minVersion, peers[peer_uri].version)) {
+//          var peers = Wildfire.getPeerPlugins();
+//          for( var peer_uri in peers ) {
+//            if(FirePHPLib.isVersionNewer(peers[peer_uri].minVersion, peers[peer_uri].version)) {
 
-              this.logToFirebug('upgrade', {peerInfo: peers[peer_uri]}, false);
-            }
-          }
+//              this.logToFirebug('upgrade', {peerInfo: peers[peer_uri]}, false);
+//            }
+//          }
           
           for( var index in messages ) {
             
@@ -465,6 +465,29 @@ FirePHPProcessor.ProcessRequest = function(Wildfire,URL,Data) {
             this.processMessage(item[0].Type, item[1], item[0]);
           }
         }
+
+
+        messages = Wildfire.getMessages('http://meta.firephp.org/Wildfire/Structure/FirePHP/Dump/0.1');
+
+        if(messages && messages.length>0) {
+          
+//          var peers = Wildfire.getPeerPlugins();
+//          for( var peer_uri in peers ) {
+//            if(FirePHPLib.isVersionNewer(peers[peer_uri].minVersion, peers[peer_uri].version)) {
+
+//              this.logToFirebug('upgrade', {peerInfo: peers[peer_uri]}, false);
+//            }
+//          }
+          
+          for( var index in messages ) {
+            
+            var item = json_parse(messages[index]);
+
+            this.processMessage("dump", item, {"Label": "Dump"});
+          }
+        }
+        
+        
       }
  
  		} catch(e) {
@@ -540,6 +563,11 @@ FirePHPProcessor.processMessage = function(mode, data, meta) {
     Firebug.Errors.increaseCount(this.context);
     
     this.logToFirebug(mode, data, false, meta);
+  } else 
+  if (mode == 'dump') {
+
+    this.logToFirebug("log", data, false, meta);
+
   }
 };
 
