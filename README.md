@@ -34,7 +34,7 @@ FirePHPCore Server Library Issues: [http://github.com/cadorn/firephp-libs/issues
 Feature Requests
 ----------------
 
-Please post to the [http://n2.nabble.com/New-Features-Improvements-f842712ef842658.html](New Features and Improvements) forum.
+Please post to the [http://n2.nabble.com/New-Features-Improvements-f842712ef842658.html](New Features & Improvements) forum.
 
 
 Server Libraries
