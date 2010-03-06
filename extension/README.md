@@ -2,24 +2,10 @@
 Dev Commands
 ============
 
-Setup:
-
-    tusk package install nr-devtools
-    nr add-bin /Applications/Firefox.app/Contents/MacOS/firefox-bin
-    nr create-profile --dev dev
-    phing -f extension/build.xml build
-    nr add-extension -l --profile dev build/extension
-
-Running:
-
-    phing -f extension/build.xml build
-    nr launch --dev --app firefox --profile dev
-
 Publishing:
 
-    phing -f extension/build.xml dist
-    phing -f extension/build.xml upload
-    
+    pinf build-program . dist
+    pinf build-program . upload
 
 
 Firebug
