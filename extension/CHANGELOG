@@ -1,4 +1,6 @@
 
+2010-03-05 - Release Version: 0.4.4rc1
+
     - (Issue 135) FirePHP 0.4.3 with Firebug 1.5 changes user agent on the fly
     - (Issue 138) Redirect "dump" to "log" in extension
     - (Issue 137) Remove advertised support for Firefox 3.0 on FirePHP 0.4.x branch
