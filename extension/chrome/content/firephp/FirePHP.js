@@ -70,6 +70,16 @@ const pm = PermManager.getService(nsIPermissionManager);
 const DEBUG = false;
 const FIREBUG_MIN_VERSION = "1.5";
 
+var FBTrace;
+if(DEBUG) {
+    FBTrace = Cc["@joehewitt.com/firebug-trace-service;1"].getService(Ci.nsISupports).wrappedJSObject.getTracer("extensions.firebug");
+} else {
+    FBTrace = {
+        "sysout": function() {}
+    }
+}
+
+
 
 var FirePHP = top.FirePHP = {
 
@@ -83,6 +93,8 @@ var FirePHP = top.FirePHP = {
   
   /* This variable is only used for ff2 */
   enabled: false,
+  
+  listenerAdded: false,
   
   initialize: function() {
 
@@ -143,7 +155,10 @@ var FirePHP = top.FirePHP = {
     /* Enable the FirePHP Service Component to set the multipart/firephp accept header */  
     observerService.addObserver(this, "http-on-modify-request", false);
 
-    Firebug.NetMonitor.addListener(this);
+    if(!this.listenerAdded) {
+        Firebug.NetMonitor.addListener(this);
+        this.listenerAdded = true;
+    }
   },
   disable: function() {
     
@@ -153,6 +168,7 @@ var FirePHP = top.FirePHP = {
     observerService.removeObserver(this, "http-on-modify-request");
       
     Firebug.NetMonitor.removeListener(this);
+    this.listenerAdded = false;
   },
 
 
