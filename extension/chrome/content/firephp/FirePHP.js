@@ -57,7 +57,8 @@ const firephpURLs =
     discuss: "http://www.firephp.org/HQ/Help.htm",
     issues: "http://code.google.com/p/firephp/issues/list",
     donate: "http://www.firephp.org/HQ/Contribute.htm?Trigger=Donate",
-    faq: "http://www.firephp.org/Wiki/Reference/FAQ"
+    faq: "http://www.firephp.org/Wiki/Reference/FAQ",
+    twitter: "http://twitter.com/firephplib"
 };
 
 

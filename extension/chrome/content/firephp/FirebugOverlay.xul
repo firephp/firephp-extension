@@ -52,7 +52,8 @@ FBL.ns(function() { with (FBL) {
 			        <menuitem label="Issues Tracker" oncommand="Firebug.FirePHP.visitWebsite('issues')"/>
 			        <menuseparator/>
 			        <menuitem label="About" oncommand="Firebug.FirePHP.openAboutDialog()"/>
-  		        <menuitem label="Donate" oncommand="Firebug.FirePHP.visitWebsite('donate')"/>
+                    <menuitem label="Follow on Twitter" oncommand="Firebug.FirePHP.visitWebsite('twitter')"/>
+      		        <menuitem label="Donate" oncommand="Firebug.FirePHP.visitWebsite('donate')"/>
             </menupopup>
         </menu>
     </menupopup>
@@ -83,6 +84,7 @@ FBL.ns(function() { with (FBL) {
 		        <menuitem label="Issues Tracker" oncommand="Firebug.FirePHP.visitWebsite('issues')"/>
 		        <menuseparator/>
 		        <menuitem label="About" oncommand="Firebug.FirePHP.openAboutDialog()"/>
+                <menuitem label="Follow on Twitter" oncommand="Firebug.FirePHP.visitWebsite('twitter')"/>
 		        <menuitem label="Donate" oncommand="Firebug.FirePHP.visitWebsite('donate')"/>
   				
   				</menupopup>
