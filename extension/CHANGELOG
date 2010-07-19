@@ -1,4 +1,6 @@
 
+2010-07-19 - Release Version: 0.4.4rc2
+
     - (Issue 141) Advanced grouping bug
     - (Issue 57) Duplicate console output
     - (Issue 136) Firebug 1.5X.0 Final won't show FirePHP's console output on first run

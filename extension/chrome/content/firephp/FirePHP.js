@@ -99,7 +99,7 @@ var FirePHP = top.FirePHP = {
   initialize: function() {
 
     // For development
-    if(this.version=="%%Version%%") {
+    if(this.version==("%%"+"Version"+"%%")) {
         this.version = "0.4";
     }
 
