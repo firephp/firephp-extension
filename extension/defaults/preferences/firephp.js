@@ -5,6 +5,8 @@ pref("extensions.firephp.clickforvv", false);
 
 pref("extensions.firephp.panelTipShowed", false);
 
+pref("extensions.firephp.followOnTwitterNoticeShowed", false);
+
 pref("extensions.firephp.previousVersion", '');
 pref("extensions.firephp.currentVersion", '');
 

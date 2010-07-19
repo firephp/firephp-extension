@@ -121,7 +121,12 @@ var FirePHP = top.FirePHP = {
         var currentVersion = FirePHP.getPref(FirePHP.prefDomain,'currentVersion');
         var previousVersion = FirePHP.getPref(FirePHP.prefDomain,'previousVersion');
         if(currentVersion!=FirePHP.version) {
-    
+
+          if(!FirePHP.getPref(FirePHP.prefDomain,'followOnTwitterNoticeShowed')) {    
+              showNotification("firephp-follow-on-twitter");
+              FirePHP.setPref(FirePHP.prefDomain,'followOnTwitterNoticeShowed', true);
+          }
+
           var url = '';
           if(previousVersion) {
             url = "http://www.firephp.org/HQ/Contribute.htm?Trigger=Upgrade";
@@ -523,8 +528,8 @@ var FirePHP = top.FirePHP = {
           prefs.setIntPref(prefName, value);
       else if (type == nsIPrefBranch.PREF_BOOL)
           prefs.setBoolPref(prefName, value);
-      else if (type == nsIPrefBranch.PREF_INVALID)
-          throw "Invalid preference "+prefName+" check that it is listed in defaults/prefs.js";
+//      else if (type == nsIPrefBranch.PREF_INVALID)
+//          throw "Invalid preference "+prefName+" check that it is listed in defaults/prefs.js";
   },
   
     setDefaultRep: function(rep)
@@ -927,11 +932,22 @@ function showNotification(name) {
 
     var nb = gBrowser.getNotificationBox();
     
+    if(name=="firephp-follow-on-twitter") {
+        nb.appendNotification("FirePHP is evolving! You can follow progress on twitter.",
+            name,
+            'chrome://firephp/skin/FirePHP_16.png',
+             nb.PRIORITY_INFO_LOW, [{
+                label: 'Follow FirePHP on Twitter',
+                callback: function() {
+                    openNewTab(firephpURLs["twitter"])
+                }
+            }]);
+    } else
     if(name=="firephp-enable-firebug-panels") {
         nb.appendNotification("Make sure you have the Firebug Console and Net panels enabled to use FirePHP!",
             name,
             'chrome://firephp/skin/FirePHP_16.png',
-             nb.PRIORITY_INFO_HIGH)
+             nb.PRIORITY_INFO_HIGH);
     } else
     if(name=="firephp-no-uamodify") {
         nb.appendNotification("You have asked FirePHP not to modify the User-Agent. For this to work you must be using a recent server library.",
