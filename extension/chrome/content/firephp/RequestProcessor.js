@@ -408,7 +408,7 @@ FirePHPProcessor.ProcessRequest = function(Wildfire,URL,Data) {
   
   if (Data || Wildfire.hasMessages()) {
 
-    Firebug.Console.openGroup([URL], null, "firephpRequestGroup", null, false);
+    Firebug.Console.openGroup([URL], null, "firephpRequestGroup", null, true);
 
     /* 
      * We wrap the logging code to ensure we can close the group
@@ -494,7 +494,7 @@ FirePHPProcessor.ProcessRequest = function(Wildfire,URL,Data) {
       this.logToFirebug('error', ['There was a problem writing your data from the Wildfire Plugin http://meta.firephp.org/Wildfire/Structure/FirePHP/FirebugConsole/0.1',e], true);
 		}
 
-    Firebug.Console.closeGroup();
+    Firebug.Console.closeGroup(null, true);
     
   }
 };
@@ -544,13 +544,13 @@ FirePHPProcessor.processMessage = function(mode, data, meta) {
       }
       
     } else {
-      Firebug.Console.openGroup(msg, null, "group", null, false);
+      Firebug.Console.openGroup(msg, null, "group", null, true);
     }
     
   } else
   if(mode=='group_end') {
     
-    Firebug.Console.closeGroup();
+    Firebug.Console.closeGroup(null, true);
     
   } else
   if (mode == 'log' || mode == 'info' || mode == 'warn' || mode == 'table' || mode == 'trace') {

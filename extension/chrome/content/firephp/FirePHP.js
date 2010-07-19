@@ -784,7 +784,7 @@ Firebug.FirePHP = extend(Firebug.Module,
                         } else
                         if(UseFirebugTemplates) {
                         
-                            oo = Firebug.Console.logFormatted([Data], this.activeContext, TemplateName, false, null);
+                            oo = Firebug.Console.logFormatted([Data], this.activeContext, TemplateName, true, null);
                         
                         } else {
                         
@@ -805,7 +805,7 @@ Firebug.FirePHP = extend(Firebug.Module,
                             
                             oo = Firebug.Console.logRow(function(object, row, rep) {
                                 return rep.tag.append({object: object, meta:Meta}, row);
-                            }, Data, this.activeContext, TemplateName, rep, null, false);
+                            }, Data, this.activeContext, TemplateName, rep, null, true);
                         }
                         FirePHP.isLoggingData = false;
                         return oo;

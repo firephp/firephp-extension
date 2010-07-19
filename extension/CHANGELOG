@@ -1,4 +1,5 @@
 
+    - (Issue 141) Advanced grouping bug
     - (Issue 57) Duplicate console output
     - (Issue 136) Firebug 1.5X.0 Final won't show FirePHP's console output on first run
     - (Issue 144) firebug 1.6X.0a10
