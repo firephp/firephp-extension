@@ -816,6 +816,13 @@ Firebug.FirePHP = extend(Firebug.Module,
                             oo = Firebug.Console.logRow(function(object, row, rep) {
                                 return rep.tag.append({object: object, meta:Meta}, row);
                             }, Data, this.activeContext, TemplateName, rep, null, true);
+
+                            // Make some URLs links
+                            try {
+                                if(Data && Data.match && Data.match(/http:\/\/upgrade.firephp.org\//)) {
+                                   oo.innerHTML = oo.innerHTML.replace("http://upgrade.firephp.org/", '<a target="_blank" href="http://upgrade.firephp.org/">http://upgrade.firephp.org/</a>');
+                                }
+                            } catch(e) {}
                         }
                         FirePHP.isLoggingData = false;
                         return oo;
