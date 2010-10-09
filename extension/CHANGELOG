@@ -1,4 +1,11 @@
 
+2010-10-08 - Release Version: 0.4.4rc3
+
+    - Bugfix to ignore unknown protocol headers
+    - (Issue 152) Enhancement: Support for Firefox 4 & Firebug 1.7 [18m]
+    - Link for upgrade message if FirePHP 1.0 used on server
+    - Send x-insight request header for FirePHP 1.0 compatibility
+
 2010-07-19 - Release Version: 0.4.4rc2
 
     - (Issue 141) Advanced grouping bug
