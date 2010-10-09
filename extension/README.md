@@ -2,6 +2,17 @@
 Dev Commands
 ============
 
+    pinf switch-workspace github.com/cadorn/firephp-extension
+
+    pinf build-program .
+
+    nr launch --dev --version 3.6 --profile master-1.5
+    nr launch --dev --version 3.6 --profile master-1.6
+    nr launch --dev --version 3.6 --profile master-1.7
+
+    nr launch --dev --version 4.0b6 --profile master-1.6
+    nr launch --dev --version 4.0b6 --profile master-1.7
+
 Publishing:
 
     pinf build-program . dist

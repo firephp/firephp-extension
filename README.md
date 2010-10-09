@@ -82,7 +82,7 @@ Add the firefox extension to the profile:
 
 Launch the profile:
 
-    nr launch --dev --profile master
+    nr launch --dev --version 3.6 --profile master
 
 
 
