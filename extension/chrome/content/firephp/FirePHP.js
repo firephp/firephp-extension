@@ -100,7 +100,7 @@ var FirePHP = top.FirePHP = {
 
     // For development
     if(this.version==("%%"+"Version"+"%%")) {
-        this.version = "0.4";
+        this.version = "0.5";
     }
 
     var onLoadHandler = function(event) {
