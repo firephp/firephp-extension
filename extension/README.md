@@ -16,8 +16,10 @@ Dev Commands
 Publishing:
 
     pinf build-program . dist
+    git tag v...
     pinf build-program . upload
 
+    
 
 Firebug
 -------
