@@ -250,6 +250,11 @@ var FirePHP = top.FirePHP = {
           httpChannel.setRequestHeader("X-FirePHP-Version", FirePHP.version, false);
       }
       
+      // FirePHP 1.0 compatibility
+      if(this.isEnabled()) {
+          httpChannel.setRequestHeader("x-insight", "activate", false);
+      }
+      
       /* Add some info about FirePHP and Firebug into a header to be sent to FirePHP
        * related sites.
        */
