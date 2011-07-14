@@ -1,4 +1,10 @@
 
+
+TODO:
+
+    - Remove __MACOSX directory in the root of the XPI (when publishing to AMO)
+
+
 2010-10-26 - Release Version: 0.5.0
 
 2010-10-08 - Release Version: 0.5rc1
