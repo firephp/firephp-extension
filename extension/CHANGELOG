@@ -4,6 +4,9 @@ TODO:
 
     - Remove __MACOSX directory in the root of the XPI (when publishing to AMO)
 
+2011-07-14 - Release Version: 0.5.0
+
+    - Set max Firefox version to 7
 
 2010-10-26 - Release Version: 0.5.0
 

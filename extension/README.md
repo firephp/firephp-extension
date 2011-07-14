@@ -13,7 +13,9 @@ Dev Commands
     nr launch --dev --version 4.0b6 --profile master-1.6
     nr launch --dev --version 4.0b6 --profile master-1.7
 
-    nr launch --dev --version 5.0 --profile master-1.8
+    nr launch --dev --version 5.0 --profile master-1.7
+
+    nr launch --dev --version 6.0 --profile master-1.8
 
 Publishing:
 
@@ -25,6 +27,10 @@ Publishing:
 
 Profiles
 --------
+
+    nr create-profile --dev master-1.7
+    nr add-extension -l --profile master-1.7 build/extension
+    nr add-extension -l --profile master-1.7 /Users/cadorn/pinf/workspaces/fbug.googlecode.com/svn/branches/firebug1.7
 
     nr create-profile --dev master-1.8
     nr add-extension -l --profile master-1.8 build/extension
