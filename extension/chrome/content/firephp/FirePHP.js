@@ -41,7 +41,6 @@ const ioService = CCSV("@mozilla.org/network/io-service;1", "nsIIOService");
   
 const observerService = CCSV("@mozilla.org/observer-service;1", "nsIObserverService");
 
-
 const STATE_TRANSFERRING = nsIWebProgressListener.STATE_TRANSFERRING;
 const STATE_IS_DOCUMENT = nsIWebProgressListener.STATE_IS_DOCUMENT;
 const STATE_STOP = nsIWebProgressListener.STATE_STOP;
@@ -68,7 +67,7 @@ const prefs = PrefService.getService(nsIPrefBranch2);
 const pm = PermManager.getService(nsIPermissionManager);
 
 const DEBUG = false;
-const FIREBUG_MIN_VERSION = "1.5";
+const FIREBUG_MIN_VERSION = "1.8";
 
 var FBTrace;
 if(DEBUG) {
@@ -100,10 +99,11 @@ var FirePHP = top.FirePHP = {
 
     // For development
     if(this.version==("%%"+"Version"+"%%")) {
-        this.version = "0.5";
+        this.version = "0.6";
     }
 
     var onLoadHandler = function(event) {
+    	    	
         document.removeEventListener("load", onLoadHandler, true);
 
         if(!FirePHP.getPref(FirePHP.prefDomain,'panelTipShowed')) {    
@@ -373,21 +373,21 @@ var FirePHP = top.FirePHP = {
   isLoggingData: false,
   
   commandLineSmallText: '',
-  commandLineLargeText: '',
+//  commandLineLargeText: '',
   
   setWindowStatusBarText: function(text) {
         
-    var commandLineSmall = FirebugContext.chrome.$("fbCommandLine");
-    var commandLineLarge = FirebugContext.chrome.$("fbLargeCommandLine");
+    var commandLineSmall = Firebug.chrome.$("fbCommandLine");
+//    var commandLineLarge = Firebug.chrome.$("fbLargeCommandLine");
     
     if(text==null) {
       commandLineSmall.value = this.commandLineSmallText;
-      commandLineLarge.value = this.commandLineLargeText;
+//      commandLineLarge.value = this.commandLineLargeText;
     } else {
       this.commandLineSmallText = commandLineSmall.value;
       commandLineSmall.value = text;
-      this.commandLineLargeText = commandLineLarge.value;
-      commandLineLarge.value = text;
+//      this.commandLineLargeText = commandLineLarge.value;
+//      commandLineLarge.value = text;
     }
   },
   
@@ -439,8 +439,16 @@ var FirePHP = top.FirePHP = {
         
     this.lastInspectorVariable = object;
     
-    
-      var browser = FirebugChrome.getCurrentBrowser();
+      var browser,
+          currentWindowDocument;
+      if (window.gBrowser) {
+    	  browser = window.gBrowser.selectedBrowser;
+    	  currentWindowDocument = window.document;
+      } else {
+    	  browser = top.document.getElementById("content");
+    	  currentWindowDocument = top.document;
+      }
+      
       if(browser && browser.contentDocument) {
         
         var bx = browser.boxObject.x;
@@ -468,13 +476,13 @@ var FirePHP = top.FirePHP = {
         }
         var h = bh-40;
         
-        var obj = FirebugChrome.window.document.getElementById('firephp-variable-inspector-overlay');
+        var obj = currentWindowDocument.getElementById('firephp-variable-inspector-overlay');
         
         obj.hidden = false;
         obj.setAttribute("style","left: "+(bx+(bw-w)/2)+"px; top: "+(by+(bh-h)/2)+"px; width: "+w+"px; height: "+h+"px;");
 
         
-        var frame = FirebugChrome.window.document.getElementById('firephp-variable-inspector-iframe');
+        var frame = currentWindowDocument.getElementById('firephp-variable-inspector-iframe');
         
 //        frame.setAttribute("style","width: "+w+"px; height: "+h+"px;");
         
@@ -502,7 +510,17 @@ var FirePHP = top.FirePHP = {
     
     this.inspectorPinned = false;
     
-    var obj = FirebugChrome.window.document.getElementById('firephp-variable-inspector-overlay');
+    var browser,
+    currentWindowDocument;
+	if (window.gBrowser) {
+		  browser = window.gBrowser.selectedBrowser;
+		  currentWindowDocument = window.document;
+	} else {
+		  browser = top.document.getElementById("content");
+		  currentWindowDocument = top.document;
+	}    
+    
+    var obj = currentWindowDocument.getElementById('firephp-variable-inspector-overlay');
     obj.hidden = true;
     
   },
@@ -1031,7 +1049,7 @@ FirePHPProgress.prototype =
         request = QI(request, nsIHttpChannel);
         
         if (this.context == Firebug.FirePHP.activeContext &&
-        FirebugChrome.isFocused()) {
+        Firebug.chrome.isFocused()) {
         
           Firebug.FirePHP.processRequest(request);
         }
@@ -1049,7 +1067,7 @@ FirePHPProgress.prototype =
           var win = progress.DOMWindow;
           if (win == win.parent) {
           
-            if (FirebugChrome.isFocused()) {
+            if (Firebug.chrome.isFocused()) {
             
               Firebug.FirePHP.queRequest(request);
             }
@@ -1101,6 +1119,21 @@ function unmonitorContext(context)
 }
 
 Firebug.registerModule(Firebug.FirePHP);
+
+
+Firebug.FirePHPActivableModule = extend(Firebug.ActivableModule,
+{
+	onSuspendFirebug: function()
+	{
+		Firebug.FirePHP.disable();
+	},
+
+	onResumeFirebug: function()
+	{
+		Firebug.FirePHP.enable();
+	}
+});
+Firebug.registerActivableModule(Firebug.FirePHPActivableModule);
 
 }});
     
