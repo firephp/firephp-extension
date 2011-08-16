@@ -992,13 +992,13 @@ function showNotification(name) {
         );
     } else
     if(name=="firephp-upgrade-firebug") {
-        nb.appendNotification("You need Firebug 1.5+ to use FirePHP!",
+        nb.appendNotification("You need Firebug 1.8+ to use FirePHP " + top.FirePHP.version + " on Firefox 5+!",
             name,
             'chrome://firephp/skin/FirePHP_16.png',
              nb.PRIORITY_CRITICAL_HIGH, [{
                 label: 'Install',
                 callback: function() {
-                    openNewTab("http://www.getfirebug.com/")
+                    openNewTab("http://getfirebug.com/downloads")
                 }
             }]
         );
