@@ -992,7 +992,7 @@ function showNotification(name) {
         );
     } else
     if(name=="firephp-upgrade-firebug") {
-        nb.appendNotification("You need Firebug 1.8+ to use FirePHP " + top.FirePHP.version + " on Firefox 5+!",
+        nb.appendNotification("You need Firebug 1.8+ to use FirePHP 0.6.2+ on Firefox 5+!",
             name,
             'chrome://firephp/skin/FirePHP_16.png',
              nb.PRIORITY_CRITICAL_HIGH, [{
