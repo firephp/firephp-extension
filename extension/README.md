@@ -24,6 +24,8 @@ Publishing:
     pinf build-program . upload
 
 
+zip -r FirePHP-FirefoxExtension-0.6.1.zip *
+
 
 Profiles
 --------
