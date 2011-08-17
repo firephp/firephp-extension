@@ -8,7 +8,7 @@
 
         <em:id>FirePHPExtension-Build@firephp.org</em:id>
         <em:name>FirePHP</em:name>
-        <em:version>%%VERSION%%</em:version>
+        <em:version>0.6.2</em:version>
         <em:type>2</em:type>
     
         <em:creator>Christoph Dorn</em:creator>
@@ -25,10 +25,6 @@
                 <em:maxVersion>8.*</em:maxVersion>
             </RDF:Description>
         </em:targetApplication>
-		
-        <!-- NOTE: Do not move these tags above <em:targetApplication>. It will break the registration process! -->
-        <em:updateURL>%%UPDATE_URL%%</em:updateURL>
-        <em:updateKey>%%UPDATE_KEY%%</em:updateKey>
-        
+     
     </RDF:Description>
 </RDF>
