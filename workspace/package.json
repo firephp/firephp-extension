@@ -1,0 +1,23 @@
+{
+    "uid": "https://github.com/firephp/firephp-extension/workspace/",
+    "name": "firephp-extension-workspace",
+    "repositories": [
+        {
+            "type": "git",
+            "url": "git://github.com/firephp/firephp-extension.git",
+            "path": "workspace"
+        }
+    ],
+    "main": "lib/main.js",
+    "scripts": {
+        "build": {
+            "location": "./",
+            "module": "/scripts/build.js"
+        }
+    },
+    "mappings": {
+        "modules": {
+            "id": "github.com/pinf/modules-js/"
+        }
+    }
+}

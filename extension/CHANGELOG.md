@@ -7,6 +7,7 @@ TODO:
 
     - Set browser version to `5.0` to `8.*`
     - (Issue 174) Erroneous Firebug version check gives warning and disabled FirePHP
+    - Refactored project to use PINF to manage development workspace
 
 2011-08-11 - Release Version: 0.6.1
 2011-08-03 - Release Version: 0.6.0

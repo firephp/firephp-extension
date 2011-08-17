@@ -6,17 +6,17 @@
     
     <RDF:Description about="urn:mozilla:install-manifest">
 
-        <em:id>%%Extension.ID%%</em:id>
-        <em:name>%%Extension.Name%%</em:name>
-        <em:version>%%Version%%%%Release%%</em:version>
+        <em:id>FirePHPExtension-Build@firephp.org</em:id>
+        <em:name>FirePHP</em:name>
+        <em:version>%%VERSION%%</em:version>
         <em:type>2</em:type>
     
-        <em:creator>%%Extension.Creator%%</em:creator>
-        <em:description>%%Extension.Description%%</em:description>
+        <em:creator>Christoph Dorn</em:creator>
+        <em:description>Firebug Extension for PHP based AJAX Development</em:description>
 
-        <em:homepageURL>%%Extension.HomepageURL%%</em:homepageURL>
-        <em:iconURL>%%Extension.IconURL%%</em:iconURL>
-        <em:optionsURL>%%Extension.OptionsURL%%</em:optionsURL>
+        <em:homepageURL>http://www.firephp.org/</em:homepageURL>
+        <em:iconURL>chrome://firephp/skin/FirePHP_32.png</em:iconURL>
+        <em:optionsURL></em:optionsURL>
 
         <em:targetApplication>
             <RDF:Description>
@@ -27,8 +27,8 @@
         </em:targetApplication>
 		
         <!-- NOTE: Do not move these tags above <em:targetApplication>. It will break the registration process! -->
-        <em:updateURL>%%Extension.UpdateURL%%</em:updateURL>
-        <em:updateKey>%%Extension.UpdateKey%%</em:updateKey>
+        <em:updateURL>%%UPDATE_URL%%</em:updateURL>
+        <em:updateKey>%%UPDATE_KEY%%</em:updateKey>
         
     </RDF:Description>
 </RDF>

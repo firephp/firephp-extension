@@ -1,0 +1,37 @@
+{
+    "boot": "github.com/firephp/firephp-extension/workspace/",
+    "engine": [
+        "node"
+    ],
+    "packages": {
+        "github.com/firephp/firephp-extension/workspace/": {
+            "locator": {
+                "location": "./"
+            }
+        },
+        "nodejs.org": {
+            "provider": "nodejs.org"
+        },
+        "pinf.org/loader": {
+            "provider": "pinf.org/loader"
+        },
+        "github.com/pinf/modules-js/": {
+            "locator": {
+                "archive": "https://github.com/pinf/modules-js/zipball/v0.1.2"
+            }
+        },
+        "github.com/kriskowal/q/": {
+            "locator": {
+                "archive": "https://github.com/kriskowal/q/zipball/v0.3.0"
+            },
+            "descriptor": {
+                "uid": "https://github.com/kriskowal/q/",
+                "dependencies": [
+                    {
+                        "id": "github.com/pinf/modules-js/"
+                    }
+                ]
+            }
+        }
+    }
+}

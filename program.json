@@ -1,0 +1,11 @@
+{
+    "uid": "https://github.com/firephp/firephp-extension/",
+    "name": "firephp-extension",
+    "version": "0.6.2",
+    "repositories": [
+        {
+            "type": "git",
+            "url": "git://github.com/firephp/firephp-extension.git"
+        }
+    ]
+}
