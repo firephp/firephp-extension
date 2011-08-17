@@ -3,7 +3,7 @@ TODO:
 
     - Remove __MACOSX directory in the root of the XPI (when publishing to AMO)
 
-2011-08-16 - Release Version: 0.6.2
+2011-08-17 - Release Version: 0.6.2
 
     - Set browser version to `5.0` to `8.*`
     - (Issue 174) Erroneous Firebug version check gives warning and disabled FirePHP

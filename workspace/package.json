@@ -13,6 +13,10 @@
         "build": {
             "location": "./",
             "module": "/scripts/build.js"
+        },
+        "publish": {
+            "location": "./",
+            "module": "/scripts/publish.js"
         }
     },
     "mappings": {

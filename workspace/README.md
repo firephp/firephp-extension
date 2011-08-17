@@ -19,9 +19,21 @@ Build Extension
     commonjs -v --script build ./
 
 
+Publish Extension
+-----------------
+
+    commonjs -v --script publish ./
+
+
 Testing
 -------
 
-OSX:
+Assuming: OSX
+
+Development (Firebug 1.8):
 
     /Applications/Firefox.app/Contents/MacOS/firefox-bin -no-remote -P firephp-extension-fb_1_8
+
+Production (sourcemint):
+    
+    /Applications/Firefox.app/Contents/MacOS/firefox-bin -no-remote -P firephp-extension-sourcemint

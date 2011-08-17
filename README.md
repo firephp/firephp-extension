@@ -16,7 +16,21 @@ For documentation on how to use FirePHP see:
 Install
 =======
 
-Visit: [https://addons.mozilla.org/en-US/firefox/addon/firephp/](https://addons.mozilla.org/en-US/firefox/addon/firephp/)
+Requirements:
+
+  * Firefox 5+
+  * [Firebug 1.8+](http://getfirebug.com/downloads)
+
+Official Release: [https://addons.mozilla.org/en-US/firefox/addon/firephp/](https://addons.mozilla.org/en-US/firefox/addon/firephp/)
+
+To install extension in source form, clone this repository and link the `../extension` folder into your 
+Firefox profile at: `<ProfilePath>/extensions/FirePHPExtension-Build@firephp.org`
+
+
+Links
+=====
+
+  * [MDN: Setting up an extension development environment](https://developer.mozilla.org/en/setting_up_extension_development_environment)
 
 
 Support & Feedback
