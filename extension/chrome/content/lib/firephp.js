@@ -41,7 +41,7 @@ function(Obj, Firefox, Wildfire, Renderer, Viewer, FirePHPLib, WINDOW)
 		this.version = "%%Version%%";
 	    // During development
 	    if (this.version === ("%%"+"Version"+"%%")) {
-	        this.version = "0.6";
+	        this.version = "0.7";
 	    }
 		this.app = null;
 		this.enabled = false;

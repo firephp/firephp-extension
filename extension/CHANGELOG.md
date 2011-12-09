@@ -3,7 +3,7 @@ TODO:
 
     - Remove __MACOSX directory in the root of the XPI (when publishing to AMO)
 
-2011-12-08 - Release Version: 0.6.3b2
+2011-12-08 - Release Version: 0.7.0b1
 
     - Set browser min version to `8.*`
     - Set browser max version to `10.*`
