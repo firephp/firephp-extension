@@ -16,7 +16,7 @@ exports.main = function(env)
 	var exclusionFile;
 
 	module.load({
-		id: "private-registry.appspot.com/cadorn.com/github/com.cadorn.baby/projects/sourcemint/packages/client-js/",
+		id: "github.com/cadorn/private-packages/sourcemint/client-js/",
 		descriptor: {
 			main: "lib/client.js"
 		}

@@ -11,3 +11,5 @@ pref("extensions.firephp.previousVersion", '');
 pref("extensions.firephp.currentVersion", '');
 
 pref("extensions.firephp.variableViewerWidth", '50%');
+
+pref("extensions.firebug.DBG_FIREPHP", false);

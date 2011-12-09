@@ -3,9 +3,18 @@ TODO:
 
     - Remove __MACOSX directory in the root of the XPI (when publishing to AMO)
 
+2011-12-08 - Release Version: 0.6.3b2
+
+    - Set browser min version to `8.*`
+    - Set browser max version to `10.*`
+    - Set Firebug min version to `1.9`
+    - Complete refactoring into AMD modules
+    - FBTrace based debugging
+    - Enable on first load if Firebug enabled
+
 2011-08-17 - Release Version: 0.6.2
 
-    - Set browser version to `5.0` to `8.*`
+    - Set browser version from `5.0` to `8.*`
     - (Issue 174) Erroneous Firebug version check gives warning and disabled FirePHP
     - Refactored project to use PINF to manage development workspace
 

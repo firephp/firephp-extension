@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet href="chrome://firephp/skin/firephp.css" type="text/css"?>
+
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script type="application/x-javascript" src="chrome://firephp/content/mainOverlay.js"/>
+    
+    <hbox id="fbPanelBar1-buttons">
+
+        <toolbarbutton id="firephpMenu" type="menu" insertafter="fbFirebugMenu">
+            
+            <menupopup id="firephpMenuPopup" onpopupshowing="return Firebug.FirePHPModule.firephp.onOptionsShowing(this);">
+            
+                <menuitem class="menuitem-iconic firephpMenuWelcomeItem" label="FirePHP Headquarters" oncommand="Firebug.FirePHPModule.firephp.visitWebsite('hq')"/>
+                <menuseparator/>
+                <menuitem type="checkbox" label="FirePHP Enabled"
+                           oncommand="Firebug.FirePHPModule.firephp.onToggleOption(this)"
+                           option="enabled"/>
+                <menu label="Options">
+                    <menupopup onpopupshowing="return Firebug.FirePHPModule.firephp.onOptionsShowing(this);">
+                        <menuitem label="Modify User-Agent Header" oncommand="Firebug.FirePHPModule.firephp.onToggleOption(this)" option="modifyua" type="checkbox"/>
+                        <menuitem label="Click for Variable Viewer" oncommand="Firebug.FirePHPModule.firephp.onToggleOption(this)" option="clickforvv" type="checkbox"/>
+                    </menupopup>
+                </menu>
+                <menuseparator/>
+                <menuitem label="FirePHP Website" oncommand="Firebug.FirePHPModule.firephp.visitWebsite('main')"/>
+                <menuitem label="FAQs" oncommand="Firebug.FirePHPModule.firephp.visitWebsite('faq')"/>
+                <menuitem label="Documentation" oncommand="Firebug.FirePHPModule.firephp.visitWebsite('docs')"/>
+                <menuitem label="Forums / Help" oncommand="Firebug.FirePHPModule.firephp.visitWebsite('discuss')"/>
+                <menuitem label="Issues Tracker" oncommand="Firebug.FirePHPModule.firephp.visitWebsite('issues')"/>
+                <menuseparator/>
+                <menuitem label="About" oncommand="Firebug.FirePHPModule.firephp.openAboutDialog()"/>
+                <menuitem label="Follow on Twitter" oncommand="Firebug.FirePHPModule.firephp.visitWebsite('twitter')"/>
+                <menuitem label="Donate" oncommand="Firebug.FirePHPModule.firephp.visitWebsite('donate')"/>
+                
+                </menupopup>
+            
+        </toolbarbutton>
+
+    </hbox>
+        
+</overlay>

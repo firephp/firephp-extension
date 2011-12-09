@@ -9,11 +9,11 @@
                 "location": "./"
             }
         },
-        "nodejs.org": {
-            "provider": "nodejs.org"
+        "nodejs.org/": {
+            "provider": "nodejs.org/"
         },
-        "pinf.org/loader": {
-            "provider": "pinf.org/loader"
+        "pinf.org/loader/": {
+            "provider": "pinf.org/loader/"
         },
         "github.com/pinf/modules-js/": {
             "locator": {
@@ -33,10 +33,10 @@
                 ]
             }
         },
-        "private-registry.appspot.com/cadorn.com/github/com.cadorn.baby/projects/sourcemint/packages/client-js/": {
-            "locator": {
-                "archive": "https://github.com/cadorn/com.cadorn.baby/zipball/master",
-                "path": "projects/sourcemint/packages/client-js"
+        "github.com/cadorn/private-packages/sourcemint/client-js/": {
+             "locator": {
+                "archive": "https://github.com/cadorn/private-packages/zipball/v0.1.7",
+                "path": "sourcemint/client-js"
             }
         },
         "github.com/cadorn/aws-lib/": {

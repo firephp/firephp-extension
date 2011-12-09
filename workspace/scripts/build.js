@@ -17,7 +17,7 @@ exports.main = function(env)
 	var exclusionFile;
 
 	module.load({
-		id: "private-registry.appspot.com/cadorn.com/github/com.cadorn.baby/projects/sourcemint/packages/client-js/",
+		id: "github.com/cadorn/private-packages/sourcemint/client-js/",
 		descriptor: {
 			main: "lib/client.js"
 		}
@@ -72,6 +72,12 @@ function build()
         
         SYSTEM.exec("rsync -r --copy-links --exclude-from " + exclusionFile + " " + extensionSourcePath + "/* " + targetPath, function()
         {
+        	var path = targetPath + "/chrome/content/lib/firephp.js";
+    		var content = FILE.read(path);
+    		content = content.replace(/%%Version%%/, programDescriptor.version);
+    		FILE.write(path, content);
+
+    		
         	targetPath = buildBasePath + "/firephp-extension-sourcemint";
     		
         	module.print("Copying\n  \0cyan(" + extensionSourcePath + "\0) to\n  \0cyan(" + targetPath + "\0)\n");
@@ -121,14 +127,18 @@ function build()
 		content = content.replace(/(<\/em:targetApplication>)/, "$1" + [
             '<em:updateURL>' + xpiUpdateURL + '</em:updateURL>'
 		].join(""));
-
 		FILE.write(path, content);
 		
 		content = FILE.read(FILE.dirname(FILE.dirname(module.id)) + "/etc/update.tpl.rdf");
 		content = content.replace(/%%VERSION%%/, programDescriptor.version);
 		content = content.replace(/%%UPDATE_LINK_URL%%/, xpiDownloadURL);
 		FILE.write(buildBasePath + "/firephp-extension-sourcemint.update.rdf", content);
-    	
+
+		path = targetPath + "/chrome/content/lib/firephp.js";
+		content = FILE.read(path);
+		content = content.replace(/%%Version%%/, programDescriptor.version);
+		FILE.write(path, content);
+		
     	module.print("Create XPI for: " + targetPath + "\n");
         SYSTEM.exec("cd " + targetPath + "; zip -r ../firephp-extension-sourcemint-" + programDescriptor.version + ".xpi  *", done);
 	}
