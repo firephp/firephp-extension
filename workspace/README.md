@@ -30,25 +30,21 @@ Testing
 
 Assuming: OSX
 
-Testing (Firefox 3.6 & Firebug 1.7 & FirePHP 0.5.0):
-
-    /Applications/Firefox\ 3.6/Firefox.app/Contents/MacOS/firefox-bin -no-remote -P firephp-extension-fb_1_7
-
 Development (Firefox 5+ & Firebug 1.8):
 
-    /Applications/Firefox.app/Contents/MacOS/firefox-bin -no-remote -P firephp-extension-fb_1_8
+    /pinf/bin/firefox-9/Firefox.app/Contents/MacOS/firefox-bin -no-remote -P firephp-extension-fb_1_8
 
-Development (Firefox 8+ & Firebug 1.9):
+Development (Firefox 9+ & Firebug 1.9):
 
-    /Applications/Firefox.app/Contents/MacOS/firefox-bin -no-remote -jsconsole -P firephp-extension-fb_1_9
+    /pinf/bin/firefox-9/Firefox.app/Contents/MacOS/firefox-bin -no-remote -jsconsole -P firephp-extension-fb_1_9
 
-Production/Testing (Firefox 5+ & amo):
+Production/Testing (Firefox 89+ & amo):
     
-    /Applications/Firefox.app/Contents/MacOS/firefox-bin -no-remote -P firephp-extension-amo
+    /pinf/bin/firefox-9/Firefox.app/Contents/MacOS/firefox-bin -no-remote -P firephp-extension-amo
 
-Production (Firefox 5+ & sourcemint):
+Production (Firefox 9+ & sourcemint):
     
-    /Applications/Firefox.app/Contents/MacOS/firefox-bin -no-remote -P firephp-extension-sourcemint
+    /pinf/bin/firefox-9/Firefox.app/Contents/MacOS/firefox-bin -no-remote -P firephp-extension-sourcemint
 
 
 Links

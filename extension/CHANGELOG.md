@@ -1,7 +1,8 @@
 
-TODO:
+2012-01-05 - Release Version: 0.7.0rc1
 
-    - Remove __MACOSX directory in the root of the XPI (when publishing to AMO)
+    - Firebug console stylesheet registration fix
+    - removeClass() fix
 
 2011-12-08 - Release Version: 0.7.0b1
 
