@@ -2,9 +2,10 @@
 define([
     "firephp/lib/json",
     "firebug/lib/domplate",
-    "firephp/lib/reps"
+    "firephp/lib/reps",
+	"firebug/lib/css"
 ],
-function(JSON, DOMPLATE, REPS)
+function(JSON, DOMPLATE, REPS, CSS)
 {
 	var Renderer = function(firephp)
 	{
@@ -200,7 +201,7 @@ function(JSON, DOMPLATE, REPS)
 	            var row = Firebug.Console.openGroup(msg, null, "group", null, true);
 	          
 	            if(meta.Collapsed && meta.Collapsed=='true') {
-	                removeClass(row, "opened");
+	                CSS.removeClass(row, "opened");
 	            }
 	            if(meta.Color) {
 	                row.style.color = meta.Color;
