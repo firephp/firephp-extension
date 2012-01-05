@@ -6,14 +6,14 @@
 2012-01-05 - Release Version: 0.7.0rc1
 
     - Firebug console stylesheet registration fix
-    - removeClass() fix
+    - (Issue 182)Group Collapsed drop FireBug error (removeClass() fix)
 
 2011-12-08 - Release Version: 0.7.0b1
 
     - Set browser min version to `8.*`
     - Set browser max version to `10.*`
     - Set Firebug min version to `1.9`
-    - Complete refactoring into AMD modules
+    - (Issue 180) Complete refactoring into AMD modules
     - FBTrace based debugging
     - Enable on first load if Firebug enabled
 
