@@ -1,4 +1,8 @@
 
+2012-01-05 - Release Version: 0.7.0rc2
+
+    - Page messages logging fix
+
 2012-01-05 - Release Version: 0.7.0rc1
 
     - Firebug console stylesheet registration fix

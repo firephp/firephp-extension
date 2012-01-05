@@ -53,18 +53,20 @@ function(JSON, DOMPLATE, REPS, CSS)
         return this.defaultRep;
     };
 
-    Renderer.prototype.logToFirebug = function(TemplateName, Data, UseFirebugTemplates, Meta)
+    Renderer.prototype.logToFirebug = function(TemplateName, Data, UseFirebugTemplates, Meta, context)
     {
         var oo = false;
-
+        
+        context = context || null;
+        
         if (this.consoleTemplates[TemplateName]) {
             oo = Firebug.Console.logRow(function(object, row, rep) {
                 return rep.tag.append({object: object, meta:Meta}, row);
-            }, Data, this.firephp.activeContext, this.consoleTemplates[TemplateName].className, this.consoleTemplates[TemplateName], null, false);
+            }, Data, context, this.consoleTemplates[TemplateName].className, this.consoleTemplates[TemplateName], null, false);
         } else
         if(UseFirebugTemplates) {
         
-            oo = Firebug.Console.logFormatted([Data], this.firephp.activeContext, TemplateName, true, null);
+            oo = Firebug.Console.logFormatted([Data], context, TemplateName, true, null);
         
         } else {
         
@@ -83,10 +85,12 @@ function(JSON, DOMPLATE, REPS, CSS)
             if (firePHPRep === FirebugReps.FirePHPNumber) {
                 rep = firePHPRep;
             }
+
+            this.firephp.app.logger.debug("Renderer.logToFirebug() :: rep", rep);
             
             oo = Firebug.Console.logRow(function(object, row, rep) {
                 return rep.tag.append({object: object, meta:Meta}, row);
-            }, Data, this.firephp.activeContext, TemplateName, rep, null, true);
+            }, Data, context, TemplateName, rep, null, true);
 
             // Make some URLs links
             try {
@@ -106,7 +110,7 @@ function(JSON, DOMPLATE, REPS, CSS)
 
     	if (Data || Wildfire.hasMessages())
     	{
-    		Firebug.Console.openGroup([URL], null, "firephpRequestGroup", null, true);
+    		Firebug.Console.openGroup([URL], options.context, "firephpRequestGroup", null, true);
     		
     		// We wrap the logging code to ensure we can close the group
     		// just in case something goes wrong.
@@ -114,7 +118,9 @@ function(JSON, DOMPLATE, REPS, CSS)
     		try {
 	            if(Data)
 	            {
-	            	var data = JSON.parse(Data);
+    		        this.firephp.app.logger.debug("Renderer.renderRequest() :: has data");
+
+    		        var data = JSON.parse(Data);
 	          
 	            	if (data['FirePHP.Firebug.Console'])
 	            	{
@@ -123,7 +129,7 @@ function(JSON, DOMPLATE, REPS, CSS)
 	                            version: "0.2.0"
 	                        };
 	
-	            		this.logToFirebug('upgrade', {peerInfo: peerInfo}, false);
+	            		this.logToFirebug('upgrade', {peerInfo: peerInfo}, false, null, options.context);
 
 	            		for (var index in data['FirePHP.Firebug.Console'])
 	            		{
@@ -136,16 +142,20 @@ function(JSON, DOMPLATE, REPS, CSS)
 	            	}
 	            }      
     		} catch(e) {
-    			this.logToFirebug('error', ['There was a problem writing your data from X-FirePHP-Data[\'FirePHP.Firebug.Console\'] to the console.', e], true);
+    			this.logToFirebug('error', ['There was a problem writing your data from X-FirePHP-Data[\'FirePHP.Firebug.Console\'] to the console.', e], true, null, options.context);
     		}
 
     		try {
     			if (Wildfire.hasMessages())
     			{
-    				var messages = Wildfire.getMessages('http://meta.firephp.org/Wildfire/Structure/FirePHP/FirebugConsole/0.1');
+    		        this.firephp.app.logger.debug("Renderer.renderRequest() :: has wildfire messages");
+
+    		        var messages = Wildfire.getMessages('http://meta.firephp.org/Wildfire/Structure/FirePHP/FirebugConsole/0.1');
     				if (messages && messages.length > 0)
     				{
-    					for ( var index in messages )
+        		        this.firephp.app.logger.debug("Renderer.renderRequest() :: wildfire console message count: " + messages.length);
+
+        		        for ( var index in messages )
     					{
     						var item = JSON.parse(messages[index]);
     						this.processMessage(item[0].Type, item[1], item[0], options.context);
@@ -156,23 +166,25 @@ function(JSON, DOMPLATE, REPS, CSS)
 
     				if (messages && messages.length > 0)
     				{
-    					for( var index in messages ) {
+        		        this.firephp.app.logger.debug("Renderer.renderRequest() :: wildfire dump message count: " + messages.length);
+
+        		        for( var index in messages ) {
     						var item = JSON.parse(messages[index]);
     						this.processMessage("dump", item, {"Label": "Dump"}, options.context);
     					}
     				}
     			}
      		} catch(e) {
-     			this.logToFirebug('error', ['There was a problem writing your data from the Wildfire Plugin http://meta.firephp.org/Wildfire/Structure/FirePHP/FirebugConsole/0.1',e], true);
+     			this.logToFirebug('error', ['There was a problem writing your data from the Wildfire Plugin http://meta.firephp.org/Wildfire/Structure/FirePHP/FirebugConsole/0.1',e], true, null, options.context);
     		}
-     		Firebug.Console.closeGroup(null, true);
+     		Firebug.Console.closeGroup(options.context, true);
     	}
     };
     
     Renderer.prototype.processMessage = function(mode, data, meta, context)
     {
     	mode = mode.toLowerCase();
-
+    	
         // Change mode from TRACE to EXCEPTION for backwards compatibility
     	if (mode === 'trace') {
     		var change = true;
@@ -198,7 +210,7 @@ function(JSON, DOMPLATE, REPS, CSS)
   	            // NOTE: Throttleing is disabled which may caue the group to be interted in a different
 	            //       index than originally intended as other messages are inserted with throttleing enabled.
 	            //       This should be done in a better way in future.
-	            var row = Firebug.Console.openGroup(msg, null, "group", null, true);
+	            var row = Firebug.Console.openGroup(msg, context, "group", null, true);
 	          
 	            if(meta.Collapsed && meta.Collapsed=='true') {
 	                CSS.removeClass(row, "opened");
@@ -207,21 +219,21 @@ function(JSON, DOMPLATE, REPS, CSS)
 	                row.style.color = meta.Color;
 	            }
     		} else {
-    			Firebug.Console.openGroup(msg, null, "group", null, true);
+    			Firebug.Console.openGroup(msg, context, "group", null, true);
     		}
     	} else
     	if (mode === 'group_end') {
-    		Firebug.Console.closeGroup(null, true);
+    		Firebug.Console.closeGroup(context, true);
     	} else
     	if (mode === 'log' || mode === 'info' || mode === 'warn' || mode === 'table' || mode === 'trace') {
-    		this.logToFirebug(mode, data, false, meta);
+    		this.logToFirebug(mode, data, false, meta, context);
     	} else 
         if (mode === 'error' || mode === 'exception') {
         	Firebug.Errors.increaseCount(context);
-        	this.logToFirebug(mode, data, false, meta);
+        	this.logToFirebug(mode, data, false, meta, context);
         } else 
         if (mode === 'dump') {
-        	this.logToFirebug("log", data, false, meta);
+        	this.logToFirebug("log", data, false, meta, context);
         }
     };
     

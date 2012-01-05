@@ -38,7 +38,7 @@ Development (Firefox 9+ & Firebug 1.9):
 
     /pinf/bin/firefox-9/Firefox.app/Contents/MacOS/firefox-bin -no-remote -jsconsole -P firephp-extension-fb_1_9
 
-Production/Testing (Firefox 89+ & amo):
+Production/Testing (Firefox 9+ & amo):
     
     /pinf/bin/firefox-9/Firefox.app/Contents/MacOS/firefox-bin -no-remote -P firephp-extension-amo
 

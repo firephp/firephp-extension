@@ -45,6 +45,9 @@ function(Obj, Firefox, Wildfire, Renderer, Viewer, FirePHPLib, WINDOW)
 	    }
 		this.app = null;
 		this.enabled = false;
+		
+		this.initializingContext = false;
+		this.pendingContextMessages = [];
 
 		this.activeBrowser = null;
         this.activeContext = null;
@@ -82,17 +85,27 @@ function(Obj, Firefox, Wildfire, Renderer, Viewer, FirePHPLib, WINDOW)
 		    initContext: function(context)
 		    {
 		        self.app.logger.debug("Firebug.FirePHPModule::initContext()");
-	        	self.enable();
-	        	
+		        self.initializingContext = true;
+		        self.enable();
 	            self.viewer.hide(true);
 		    },
 		    
 		    showContext: function(browser, context)
 		    {
 		        self.app.logger.debug("Firebug.FirePHPModule::showContext()");
+		        self.initializingContext = false;
 
 		        self.activeBrowser = browser;
 		        self.activeContext = context;
+
+		        if (self.pendingContextMessages.length > 0)
+		        {
+		        	self.pendingContextMessages.forEach(function(renderer)
+		        	{
+		        		renderer();
+		        	});
+		        	self.pendingContextMessages = [];
+		        }
 		    },
 
 		    destroyContext: function(context)
@@ -399,18 +412,33 @@ function(Obj, Firefox, Wildfire, Renderer, Viewer, FirePHPLib, WINDOW)
 	{
         var data = info["data"],
         	wildfire =  info["plugin"];
-
+        
         if (!data && !wildfire.hasMessages()) {
             return;
         }
+        
+        function render()
+        {
+            firephp.app.logger.debug("RequestProcessor.renderRequest('" + url + "') :: DO RENDER", info);
 
-        firephp.renderer.renderRequest({
-        	data: data,
-            wildfire: wildfire,
-            context: firephp.activeContext,
-            url: url
-        });
-    },	
+            firephp.renderer.renderRequest({
+            	data: data,
+                wildfire: wildfire,
+                context: firephp.activeContext,
+                url: url
+            });
+        }
+        
+        if (firephp.initializingContext)
+        {
+            firephp.app.logger.debug("RequestProcessor.renderRequest('" + url + "') :: QUE", info);
+            firephp.pendingContextMessages.push(render);
+        }
+        else
+        {
+        	render();
+        }
+    },
 
 	requestProcessor = new RequestProcessor();
 
