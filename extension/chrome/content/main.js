@@ -7,6 +7,10 @@ define([
 ],
 function(FBTrace, TraceModule, TraceListener, FirePHP)
 {
+	// NOTE: This needs to stay here as we need to register the stylesheet right away
+	//       otherwise Firebug may skip it!
+	// TODO: Trigger stylesheet inject in Firebug if added after init.
+    Firebug.registerStylesheet("resource://firephp/content/lib/console.css");
 
 	var FirePHPApp = function() {}
 	

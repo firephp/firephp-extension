@@ -18,12 +18,10 @@ function(JSON, DOMPLATE, REPS)
         this.defaultRep = null;
         this.reps = [];
 
-        Firebug.registerStylesheet("resource://firephp/content/lib/console.css");
-        
         REPS.init(this);
 	};
     
-    Renderer.prototype.RegisterConsoleTemplate = function(Name, Template)
+	Renderer.prototype.RegisterConsoleTemplate = function(Name, Template)
     {
         this.consoleTemplates[Name] = Template;
     };
