@@ -19,7 +19,7 @@ Install
 Requirements:
 
   * Firefox 5+
-  * [Firebug 1.8+](http://getfirebug.com/downloads)
+  * [Firebug 1.9+](http://getfirebug.com/downloads)
 
 Official Release: [https://addons.mozilla.org/en-US/firefox/addon/firephp/](https://addons.mozilla.org/en-US/firefox/addon/firephp/)
 
