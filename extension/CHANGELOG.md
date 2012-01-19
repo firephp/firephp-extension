@@ -1,4 +1,8 @@
 
+2012-01-18 - Release Version: 0.7.0rc3
+
+    - (Issue 185) FirePHP does not store it's enabled status (0.7.0rc2)
+
 2012-01-05 - Release Version: 0.7.0rc2
 
     - Page messages logging fix

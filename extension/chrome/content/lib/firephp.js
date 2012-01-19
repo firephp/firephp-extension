@@ -80,13 +80,13 @@ function(Obj, Firefox, Wildfire, Renderer, Viewer, FirePHPLib, WINDOW)
 		    onResumeFirebug: function()
 		    {
 		        self.app.logger.debug("Firebug.FirePHPModule::onResumeFirebug()");
+		        self.enable();
 		    },
 
 		    initContext: function(context)
 		    {
 		        self.app.logger.debug("Firebug.FirePHPModule::initContext()");
 		        self.initializingContext = true;
-		        self.enable();
 	            self.viewer.hide(true);
 		    },
 		    
