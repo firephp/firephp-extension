@@ -184,12 +184,13 @@ function(Obj, Firefox, Wildfire, Renderer, Viewer, FirePHPLib, WINDOW)
     		this.disable();
     		return;
     	}
-    		
-    	if (this.enabled)
+
+    	this.disablePending = false;
+
+		if (this.enabled)
 			return;
 		
 		this.enabled = true;
-		this.disablePending = false;
 		
         this.app.logger.debug("FirePHP.enable()");
 
@@ -207,7 +208,7 @@ function(Obj, Firefox, Wildfire, Renderer, Viewer, FirePHPLib, WINDOW)
 		// suspend/resume cycles on page refresh and may be over-written by an
 		// enable call. The problem is page requests may be made during this time
 		// where the state would be disabled and thus no headers added to request.
-		// @see http://code.google.com/p/fbug/issues/detail?id=5171
+		// @see http://code.google.com/p/fbug/issues/detail?id=5179
 		// @see http://code.google.com/p/firephp/issues/detail?id=185
 		this.disablePending = true;
 		var self = this;
