@@ -45,6 +45,7 @@ function(Obj, Firefox, Wildfire, Renderer, Viewer, FirePHPLib, WINDOW)
 	    }
 		this.app = null;
 		this.enabled = false;
+		this.disablePending = false;
 		
 		this.initializingContext = false;
 		this.pendingContextMessages = [];
@@ -188,6 +189,7 @@ function(Obj, Firefox, Wildfire, Renderer, Viewer, FirePHPLib, WINDOW)
 			return;
 		
 		this.enabled = true;
+		this.disablePending = false;
 		
         this.app.logger.debug("FirePHP.enable()");
 
@@ -198,16 +200,30 @@ function(Obj, Firefox, Wildfire, Renderer, Viewer, FirePHPLib, WINDOW)
 
 	FirePHP.prototype.disable = function()
 	{
-		if (!this.enabled)
+		if (!this.enabled || this.disablePending)
 			return;
 
-		this.enabled = false;
-		
-        this.app.logger.debug("FirePHP.disable()");
+		// Do not disable immediately as disable gets triggered when firebug
+		// suspend/resume cycles on page refresh and may be over-written by an
+		// enable call. The problem is page requests may be made during this time
+		// where the state would be disabled and thus no headers added to request.
+		// @see http://code.google.com/p/fbug/issues/detail?id=5171
+		// @see http://code.google.com/p/firephp/issues/detail?id=185
+		this.disablePending = true;
+		var self = this;
+		setTimeout(function()
+		{
+			if (self.disablePending)
+			{
+				self.enabled = false;
 
-        Firebug.NetMonitor.removeListener(netMonitorListener);
-        
-        observerService.removeObserver(requestObserver, "http-on-modify-request", false);        
+				self.app.logger.debug("FirePHP.disable()");
+
+		        Firebug.NetMonitor.removeListener(netMonitorListener);
+
+		        observerService.removeObserver(requestObserver, "http-on-modify-request", false);        
+			}
+		}, 1000); // Disable if no enable call within one second.
 	}
 
 	FirePHP.prototype.logWarning = function(args)
