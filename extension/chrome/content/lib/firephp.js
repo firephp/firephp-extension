@@ -419,8 +419,6 @@ function(Obj, Firefox, Wildfire, Renderer, Viewer, FirePHPLib, WINDOW)
         
         function render()
         {
-            firephp.app.logger.debug("RequestProcessor.renderRequest('" + url + "') :: DO RENDER", info);
-
             firephp.renderer.renderRequest({
             	data: data,
                 wildfire: wildfire,
@@ -431,7 +429,6 @@ function(Obj, Firefox, Wildfire, Renderer, Viewer, FirePHPLib, WINDOW)
         
         if (firephp.initializingContext)
         {
-            firephp.app.logger.debug("RequestProcessor.renderRequest('" + url + "') :: QUE", info);
             firephp.pendingContextMessages.push(render);
         }
         else
