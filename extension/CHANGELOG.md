@@ -1,4 +1,5 @@
 
+2012-01-27 - Release Version: 0.7.0
 2012-01-24 - Release Version: 0.7.0rc5
 
     - (Issue 185) FirePHP does not store it's enabled status (0.7.0rc2)
