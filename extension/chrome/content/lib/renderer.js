@@ -1,11 +1,10 @@
 
 define([
-    "firephp/lib/json",
     "firebug/lib/domplate",
     "firephp/lib/reps",
 	"firebug/lib/css"
 ],
-function(JSON, DOMPLATE, REPS, CSS)
+function(DOMPLATE, REPS, CSS)
 {
 	var Renderer = function(firephp)
 	{
