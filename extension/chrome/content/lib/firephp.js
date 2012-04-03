@@ -503,7 +503,7 @@ function(Obj, Firefox, Wildfire, Renderer, Viewer, FirePHPLib, WINDOW)
 		        else
 		        {
 		        	// Identify FirePHP by separate header
-		            httpChannel.setRequestHeader("X-FirePHP-Version", FirePHP.version, false);
+		            httpChannel.setRequestHeader("X-FirePHP-Version", firephp.version, false);
 		        }
 
 		        // FirePHP 1.0 compatibility
