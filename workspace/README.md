@@ -38,6 +38,10 @@ Development (Firefox 9+ & Firebug 1.9):
 
     /pinf/bin/firefox-9/Firefox.app/Contents/MacOS/firefox-bin -no-remote -jsconsole -P firephp-extension-fb_1_9
 
+Development (Firefox 11+ & Firebug 1.10):
+
+    /pinf/bin/firefox-11/Firefox.app/Contents/MacOS/firefox-bin -no-remote -jsconsole -P firephp-extension-fb_1_10
+
 Production/Testing (Firefox 9+ & amo):
     
     /pinf/bin/firefox-9/Firefox.app/Contents/MacOS/firefox-bin -no-remote -P firephp-extension-amo
@@ -57,9 +61,9 @@ Links
 Dev Setup
 =========
 
-    ln -s /pinf/workspaces/github.com/firephp/firephp-extension/extension /Users/cadorn/Library/Application\ Support/Firefox/Profiles/8lfmz54q.firephp-extension-fb_1_9/extensions/FirePHPExtension-Build@firephp.org
-    ln -s /pinf/workspaces/fbug.googlecode.com/svn/branches/firebug1.9 /Users/cadorn/Library/Application\ Support/Firefox/Profiles/8lfmz54q.firephp-extension-fb_1_9/extensions/firebug@software.joehewitt.com
-    ln -s /pinf/workspaces/fbug.googlecode.com/svn/extensions/fbtrace/branches/fbtrace1.9 /Users/cadorn/Library/Application\ Support/Firefox/Profiles/8lfmz54q.firephp-extension-fb_1_9/extensions/fbtrace@getfirebug.com
+    ln -s /pinf/workspaces/github.com/firephp/firephp-extension/0/extension /Users/cadorn/Library/Application\ Support/Firefox/Profiles/jaxl5tqh.firephp-extension-fb_1_10/extensions/FirePHPExtension-Build@firephp.org
+    ln -s /pinf/workspaces/github.com/firebug/firebug/extension /Users/cadorn/Library/Application\ Support/Firefox/Profiles/jaxl5tqh.firephp-extension-fb_1_10/extensions/firebug@software.joehewitt.com
+    ln -s /pinf/workspaces/github.com/firebug/firebug/trace/FBTrace /Users/cadorn/Library/Application\ Support/Firefox/Profiles/jaxl5tqh.firephp-extension-fb_1_10/extensions/fbtrace@getfirebug.com
 
 **user.js**
 
