@@ -1,4 +1,8 @@
 
+2012-04-02 - Release Version: 0.7.1
+
+    - (Issue 3) [FirePHP 'No Modify Agent' not working](https://github.com/firephp/firephp-extension/issues/3)
+
 2012-01-27 - Release Version: 0.7.0
 2012-01-24 - Release Version: 0.7.0rc5
 

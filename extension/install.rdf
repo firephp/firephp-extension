@@ -8,7 +8,7 @@
 
         <em:id>FirePHPExtension-Build@firephp.org</em:id>
         <em:name>FirePHP</em:name>
-        <em:version>0.7.0</em:version>
+        <em:version>0.7.1</em:version>
         <em:type>2</em:type>
     
         <em:creator>Christoph Dorn</em:creator>
