@@ -445,7 +445,15 @@ FirePHPProcessor.ProcessRequest = function(Wildfire,URL,Data) {
     try {
 			
       if(Wildfire.hasMessages()) {
-           
+      
+      
+        Wildfire.addListenerOnMessageIsReady('http://meta.firephp.org/Wildfire/Structure/FirePHP/FirebugConsole/0.1', 
+          function(message) {
+            var item = json_parse(message);
+            this.processMessage(item[0].Type, item[1], item[0]);
+        }, this);
+      
+
         var messages = Wildfire.getMessages('http://meta.firephp.org/Wildfire/Structure/FirePHP/FirebugConsole/0.1');
 
         if(messages && messages.length>0) {
@@ -466,6 +474,12 @@ FirePHPProcessor.ProcessRequest = function(Wildfire,URL,Data) {
           }
         }
 
+
+        Wildfire.addListenerOnMessageIsReady('http://meta.firephp.org/Wildfire/Structure/FirePHP/Dump/0.1', 
+          function(message) {
+            var item = json_parse(messages[index]);
+            this.processMessage("dump", item, {"Label": "Dump"});
+        }, this);
 
         messages = Wildfire.getMessages('http://meta.firephp.org/Wildfire/Structure/FirePHP/Dump/0.1');
 

@@ -37,9 +37,12 @@ const nsIWebProgressListener = (FB_NEW)?Ci.nsIWebProgressListener:CI("nsIWebProg
 const nsISupportsWeakReference = (FB_NEW)?Ci.nsISupportsWeakReference:CI("nsISupportsWeakReference");
 const nsISupports = (FB_NEW)?Ci.nsISupport:CI("nsISupports");
   
-const ioService = CCSV("@mozilla.org/network/io-service;1", "nsIIOService");
+//const ioService = CCSV("@mozilla.org/network/io-service;1", "nsIIOService");
+const ioService = Cc["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService);
   
-const observerService = CCSV("@mozilla.org/observer-service;1", "nsIObserverService");
+//const observerService = CCSV("@mozilla.org/observer-service;1", "nsIObserverService");
+const observerService = Cc["@mozilla.org/observer-service;1"].getService(Components.interfaces.nsIObserverService);
+
 
 const STATE_TRANSFERRING = nsIWebProgressListener.STATE_TRANSFERRING;
 const STATE_IS_DOCUMENT = nsIWebProgressListener.STATE_IS_DOCUMENT;
