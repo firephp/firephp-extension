@@ -7,6 +7,8 @@ Wildfire.Channel.HttpHeaders = function() {
 
   this.protocol_ids = new Array();
   
+  this.options = new Array();
+  
   this.messages = new Array();
   
   this.messageReceived = function(Key, Value)
@@ -22,7 +24,13 @@ Wildfire.Channel.HttpHeaders = function() {
             
             this.protocol_ids[id] = Value;
     
-          } else {
+          }
+	       else if(Key.substr(this.headerPrefix.length,7)=='option-') {
+            var id = Key.substr(this.headerPrefix.length+7);
+                
+            this.options[id] = Value == 'true' || Value == '1' || Value == 1;
+           }
+           else {
             
             var parsed_key = this.parseKey(Key);
             
@@ -63,6 +71,10 @@ Wildfire.Channel.HttpHeaders = function() {
     for( var uri in this.protocols ) {
       this.protocols[uri].allMessagesReceived();
     }
+  };
+  
+  this.getOption = function(option) {
+    return(this.options[option]);
   };
   
   this.getProtocol = function(URI) {
