@@ -1,13 +1,14 @@
-PINF Workspace
-==============
+*Status: DEV*
 
-This directory contains everything needed to maintain this project using the
-[PINF toolchain system](http://www.christophdorn.com/Research/#pinf).
+Development Workspace
+=====================
 
-To use *PINF* you must have the [PINF JavaScript Loader](https://github.com/pinf/loader-js) 
-[installed](https://github.com/pinf/loader-js/blob/master/docs/Setup.md).
+**NOTE: The tools used by this workspace are still under development.**
 
-INFO: *PINF* currently works only on *UNIX* systems that support [node.js](http://nodejs.org/).
+Requirements:
+
+  * [node.js](http://nodejs.org/)
+  * [sm](https://github.com/sourcemint/sm)
 
 
 Commands
@@ -16,13 +17,13 @@ Commands
 Build Extension
 ---------------
 
-    commonjs -v --script build ./
+    make build
 
 
 Publish Extension
 -----------------
 
-    commonjs -v --script publish ./
+    make publish
 
 
 Testing

@@ -1,6 +1,7 @@
 {
-    "uid": "https://github.com/firephp/firephp-extension/workspace/",
     "name": "firephp-extension-workspace",
+    "version": "0.0.0",
+    "pm": "sm",
     "repositories": [
         {
             "type": "git",
@@ -8,20 +9,8 @@
             "path": "workspace"
         }
     ],
-    "main": "lib/main.js",
-    "scripts": {
-        "build": {
-            "location": "./",
-            "module": "/scripts/build.js"
-        },
-        "publish": {
-            "location": "./",
-            "module": "/scripts/publish.js"
-        }
-    },
-    "mappings": {
-        "modules": {
-            "id": "github.com/pinf/modules-js/"
-        }
+    "dependencies": {
+        "pinf": "~0.2.17",
+        "sm-util": "~0.1.12"
     }
 }

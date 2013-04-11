@@ -1,150 +1,127 @@
 
-var SYSTEM = require("modules/system"),
-    FILE = require("modules/file"),
-    UTIL = require("modules/util"),
-    JSON = require("modules/json"),
-    Q = require("modules/q"),
-    SOURCEMINT_CLIENT = false;
-
-var basePath = FILE.dirname(FILE.dirname(FILE.dirname(module.id))),
-	extensionSourcePath = basePath + "/extension",
-	buildBasePath = basePath + "/build",
-	programDescriptor = JSON.decode(FILE.read(basePath + "/program.json"));
+const PATH = require("path");
+const FS = require("sm-util/lib/fs");
+const PINF = require("pinf");
+const TERM = require("sm-util/lib/term");
+const OS = require("sm-util/lib/os");
 
 
-exports.main = function(env)
-{
-	var exclusionFile;
+function main(callback) {
 
-	module.load({
-		id: "github.com/cadorn/private-packages/sourcemint/client-js/",
-		descriptor: {
-			main: "lib/client.js"
+	var rootPath = PATH.join(__dirname, "../..");
+	var pinf = PINF.forProgram(rootPath)(rootPath);
+	var extensionSourcePath = PATH.join(rootPath, "extension");
+	var packageDescriptor = pinf.descriptor();
+	var version = packageDescriptor.version;
+	var buildBasePath = PATH.join(rootPath, "build");
+
+	TERM.stdout.writenl("\0cyan(Build FirePHP Firefox Extension version '" + version + "'.\0)");
+
+	function prepare(callback) {
+		var pinf = PINF.forProgram(extensionSourcePath)(extensionSourcePath);
+		FS.removeSync(buildBasePath);
+		return pinf.sm(function(err, sm) {
+			if (err) return callback(err);
+			return callback(null, {
+				sm: sm
+			});
+		});
+	}
+
+	function syncVersion(API, callback) {
+		var path = PATH.join(extensionSourcePath, "install.rdf");
+		var content = FS.readFileSync(path).toString();
+		var originalContent = content;
+		content = content.replace(/(<em:version>)([^<]*)(<\/em:version>)/, "$1" + version + "$3");
+		if (content != originalContent) {
+			TERM.stdout.writenl("Updated version in: " + path);
+			FS.writeFileSync(path, content);
 		}
-	}, function(id)
-	{
-		SOURCEMINT_CLIENT = require(id);
+		return callback(null);
+	}
 
-		build();
+	function exportTo(API, targetPath, callback) {
+    	TERM.stdout.writenl("Copying\n  \0cyan(" + extensionSourcePath + "\0) to\n  \0cyan(" + targetPath + "\0)");
+		return API.sm.export(targetPath, function(err) {
+			if (err) return callback(err);
+			var path = PATH.join(targetPath, "chrome/content/lib/firephp.js");
+			var content = FS.readFileSync(path).toString();
+			content = content.replace(/%%Version%%/, version);
+			FS.writeFileSync(path, content);
+			return callback(null);
+		});
+	}
+
+	function exportAMO(API, callback) {
+		var targetPath = PATH.join(buildBasePath, "firephp-extension-amo");
+		return exportTo(API, targetPath, function(err) {
+			if (err) return callback(err);
+	    	TERM.stdout.writenl("Create XPI for: " + targetPath);
+			return OS.exec("zip -r ../firephp-extension-amo-" + version + ".xpi  *", {
+				cwd: targetPath
+			}).then(function() {
+				return callback(null);
+			}).fail(callback);
+		});
+	}
+
+	function exportSourcemint(API, callback) {
+		var targetPath = PATH.join(buildBasePath, "firephp-extension-sourcemint");
+		return exportTo(API, targetPath, function(err) {
+			if (err) return callback(err);
+
+			// TODO: Fetch these from sourcemint service.
+			var XPI_UPDATE_URL = "https://s3.amazonaws.com/update.sourcemint.com/github.com/firephp/firephp-extension/-stream/stable/update.rdf?app.os=%APP_OS%&amp;app.version=%APP_VERSION%&amp;item.status=%ITEM_STATUS%&amp;item.version=%ITEM_VERSION%&amp;app.locale=%APP_LOCALE%";
+			var XPI_DOWNLOAD_URL = "https://s3.amazonaws.com/download.sourcemint.com/github.com/firephp/firephp-extension/-stream/stable/firephp-extension-" + version + ".xpi";
+
+			var path = null;
+			var content = null;
+
+			path = PATH.join(targetPath, "install.rdf");
+			content = FS.readFileSync(path).toString();
+			content = content.replace(/(<\/em:targetApplication>)/, "$1" + [
+	            '<em:updateURL>' + XPI_UPDATE_URL + '</em:updateURL>'
+			].join(""));
+			FS.writeFileSync(path, content);
+    	
+			path = PATH.join(__dirname, "../etc/update.tpl.rdf");
+			content = FS.readFileSync(path).toString();
+			content = content.replace(/%%VERSION%%/, version);
+			content = content.replace(/%%UPDATE_LINK_URL%%/, XPI_DOWNLOAD_URL);
+			path = PATH.join(buildBasePath, "firephp-extension-sourcemint.update.rdf");
+			FS.writeFileSync(path, content);
+		
+	    	TERM.stdout.writenl("Create XPI for: " + targetPath);
+			return OS.exec("zip -r ../firephp-extension-amo-" + version + ".xpi  *", {
+				cwd: targetPath
+			}).then(function() {
+				return callback(null);
+			}).fail(callback);
+		});
+	}
+
+	return prepare(function(err, API) {
+		if (err) return callback(err);
+
+		return syncVersion(API, function(err) {
+			if (err) return callback(err);
+
+			return exportAMO(API, function(err) {
+				if (err) return callback(err);
+
+				return exportSourcemint(API, function(err) {
+					if (err) return callback(err);
+
+					TERM.stdout.writenl("\0green(Done\0)");
+
+					return callback(null);
+				});
+			});
+		});
 	});
 }
 
-function build()
-{
-	module.print("\0cyan(Build FirePHP Firefox Extension version '" + programDescriptor.version + "' for stream '" + programDescriptor.stream + "'.\0)\n");
 
-	SYSTEM.exec("rm -Rf " + buildBasePath, next1);
-	
-	function next1()
-	{
-		var path = extensionSourcePath + "/install.rdf",
-			content = FILE.read(path),
-			originalContent = content;
-		content = content.replace(/(<em:version>)([^<]*)(<\/em:version>)/, "$1" + programDescriptor.version + "$3");
-		
-		if (content != originalContent)
-		{
-			module.print("Updated version in: " + path + "\n");
-			FILE.write(path, content);
-		}
-
-		next2();
-	}
-	
-	function next2()
-	{
-		FILE.mkdirs(buildBasePath, 0775);
-		
-		var targetPath = buildBasePath + "/firephp-extension-amo";
-		
-    	module.print("Copying\n  \0cyan(" + extensionSourcePath + "\0) to\n  \0cyan(" + targetPath + "\0)\n");
-
-        // write exclusion file
-        // @see http://articles.slicehost.com/2007/10/10/rsync-exclude-files-and-folders
-
-        exclusionFile = buildBasePath + "/.tmp_rsync-exclude~";
-        FILE.write(exclusionFile, [
-            ".DS_Store",
-            ".tmp_*",
-            "Thumbs.db",
-            ""
-        ].join("\n"));
-        
-        SYSTEM.exec("rsync -r --copy-links --exclude-from " + exclusionFile + " " + extensionSourcePath + "/* " + targetPath, function()
-        {
-        	var path = targetPath + "/chrome/content/lib/firephp.js";
-    		var content = FILE.read(path);
-    		content = content.replace(/%%Version%%/, programDescriptor.version);
-    		FILE.write(path, content);
-
-    		
-        	targetPath = buildBasePath + "/firephp-extension-sourcemint";
-    		
-        	module.print("Copying\n  \0cyan(" + extensionSourcePath + "\0) to\n  \0cyan(" + targetPath + "\0)\n");
-
-            // write exclusion file
-            // @see http://articles.slicehost.com/2007/10/10/rsync-exclude-files-and-folders
-
-            exclusionFile = buildBasePath + "/.tmp_rsync-exclude~";
-            FILE.write(exclusionFile, [
-                ".DS_Store",
-                ".tmp_*",
-                "Thumbs.db",
-                ""
-            ].join("\n"));
-            
-            SYSTEM.exec("rsync -r --copy-links --exclude-from " + exclusionFile + " " + extensionSourcePath + "/* " + targetPath, next3);
-        });
-	}
-
-	function next3()
-	{
-		var targetPath = buildBasePath + "/firephp-extension-amo";
-
-    	module.print("Create XPI for: " + targetPath + "\n");
-
-        SYSTEM.exec("cd " + targetPath + "; zip -r ../firephp-extension-amo-" + programDescriptor.version + ".xpi  *", next4);
-	}
-	
-	function next4()
-	{
-    	var xpiUpdateURL = SOURCEMINT_CLIENT.updateUrlForUID(programDescriptor.uid, {
-    		"type": "mozilla-addon",
-    		"stream": programDescriptor.stream,
-    		"version": programDescriptor.version
-    	});
-
-    	var xpiDownloadURL = SOURCEMINT_CLIENT.downloadUrlForUID(programDescriptor.uid, {
-    		"type": "mozilla-addon",
-    		"stream": programDescriptor.stream,
-    		"version": programDescriptor.version
-    	});
-    	
-		var targetPath = buildBasePath + "/firephp-extension-sourcemint",
-			path = targetPath + "/install.rdf";
-
-		var content = FILE.read(path);
-		content = content.replace(/(<\/em:targetApplication>)/, "$1" + [
-            '<em:updateURL>' + xpiUpdateURL + '</em:updateURL>'
-		].join(""));
-		FILE.write(path, content);
-		
-		content = FILE.read(FILE.dirname(FILE.dirname(module.id)) + "/etc/update.tpl.rdf");
-		content = content.replace(/%%VERSION%%/, programDescriptor.version);
-		content = content.replace(/%%UPDATE_LINK_URL%%/, xpiDownloadURL);
-		FILE.write(buildBasePath + "/firephp-extension-sourcemint.update.rdf", content);
-
-		path = targetPath + "/chrome/content/lib/firephp.js";
-		content = FILE.read(path);
-		content = content.replace(/%%Version%%/, programDescriptor.version);
-		FILE.write(path, content);
-		
-    	module.print("Create XPI for: " + targetPath + "\n");
-        SYSTEM.exec("cd " + targetPath + "; zip -r ../firephp-extension-sourcemint-" + programDescriptor.version + ".xpi  *", done);
-	}
-
-	function done()
-	{
-		module.print("\0green(Done\0)\n");
-	}
+if (require.main === module) {
+	PINF.for(module).run(main);	
 }

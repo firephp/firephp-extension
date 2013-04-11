@@ -1,8 +1,6 @@
 {
-    "uid": "https://github.com/firephp/firephp-extension/",
     "name": "firephp-extension",
-    "version": "0.7.1",
-    "stream": "stable",
+    "version": "0.7.2",
     "repositories": [
         {
             "type": "git",
