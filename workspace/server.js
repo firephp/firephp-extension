@@ -91,6 +91,9 @@ function mountTests(app) {
     app.get(/^\/tests\/inject-script$/, function(req, res, next) {
         res.writeHead(200, {
             'X-Wf-1-1-1-1': '85|{"RequestHeaders":{"1":"1","2":"2","3":"3","<script>alert(window)<\\/SCRIPT>":"LOL!"}}|',
+            'X-Wf-1-1-1-2': '85|{"RequestHeaders":{"1":"1","2":"2","3":"3","LOL!":"<script>alert(window)<\\/SCRIPT>"}}|',
+            'X-Wf-1-1-1-3': '39|{"<script>alert(window)<\\/SCRIPT>":"1"}|',
+            'X-Wf-1-1-1-4': '33|"<script>alert(window)<\\/SCRIPT>"|',
             'X-Wf-1-Structure-1': 'http://meta.firephp.org/Wildfire/Structure/FirePHP/Dump/0.1',
             'X-Wf-1-Plugin-1': 'http://meta.firephp.org/Wildfire/Plugin/FirePHP/Library-FirePHPCore/0.3',
             'X-Wf-Protocol-1': 'http://meta.wildfirehq.org/Protocol/JsonStream/0.2',
