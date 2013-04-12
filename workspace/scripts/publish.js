@@ -11,6 +11,8 @@ var basePath = FILE.dirname(FILE.dirname(FILE.dirname(module.id))),
 	programDescriptor = JSON.decode(FILE.read(basePath + "/program.json"));
 
 
+// AddType application/x-xpinstall .xpi
+
 exports.main = function(env)
 {
 	var exclusionFile;

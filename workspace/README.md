@@ -32,3 +32,4 @@ Links
 
   * http://reference.developercompanion.com/Tools/FirePHPCompanion/Run/Examples/
   * https://addons.mozilla.org/en-US/firefox/pages/appversions/
+  * https://developer.mozilla.org/en/docs/Extension_Packaging
