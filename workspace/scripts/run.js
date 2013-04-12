@@ -6,6 +6,7 @@ const TERM = require("sm-util/lib/term");
 const OS = require("sm-util/lib/os");
 const MD5 = require("sm-util/lib/md5").md5;
 const EXEC = require("child_process").exec;
+const SERVER = require("../server");
 
 
 function main(callback) {
@@ -54,10 +55,12 @@ function main(callback) {
 						'user_pref("browser.tabs.warnOnClose", false);',
 						'user_pref("browser.rights.3.shown", true);',
 						'user_pref("browser.shell.checkDefaultBrowser", false);',
-						'user_pref("extensions.autoDisableScopes", 0);'
+						'user_pref("extensions.autoDisableScopes", 0);',
+						'user_pref("extensions.firebug.alwaysOpenTraceConsole", true);',
+						'user_pref("browser.startup.homepage", "http://localhost:8080/");'
 					].join("\n"));
 				}
-				return ready(callback);				
+				return ready(callback);
 			}
 			function ensureExtensions(callback) {
 				var extensionsPath = PATH.join(profileInfo.path, "extensions");
@@ -104,9 +107,18 @@ function main(callback) {
 		}).fail(callback);
 	}
 
+	function launchServer(callback) {
+		return SERVER.main(callback);
+	}
+
 	return ensureProfile(function(err, profileInfo) {
 		if (err) return callback(err);
-		return launchProfile(profileInfo, callback);
+
+		return launchServer(function(err) {
+			if (err) return callback(err);
+
+			return launchProfile(profileInfo, callback);
+		});
 	});
 }
 

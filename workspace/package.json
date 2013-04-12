@@ -2,6 +2,7 @@
     "name": "firephp-extension-workspace",
     "version": "0.0.0",
     "pm": "sm",
+    "main": "./server.js",
     "repositories": [
         {
             "type": "git",
@@ -11,7 +12,9 @@
     ],
     "dependencies": {
         "pinf": "~0.2.17",
-        "sm-util": "~0.1.12"
+        "sm-util": "~0.1.12",
+        "express": "~3.1.0",
+        "hbs": "~2.1.0"        
     },
     "mappings": {
         "firefox": [
@@ -26,5 +29,8 @@
             "archive",
             "https://getfirebug.com/releases/fbtrace/1.11/fbTrace-1.11.2.xpi"
         ]
+    },
+    "scripts": {
+        "run": "./scripts/run.js"
     }
 }
