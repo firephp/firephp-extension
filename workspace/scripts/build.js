@@ -90,9 +90,9 @@ function main(callback) {
 			content = content.replace(/%%UPDATE_LINK_URL%%/, XPI_DOWNLOAD_URL);
 			path = PATH.join(buildBasePath, "firephp-extension-sourcemint.update.rdf");
 			FS.writeFileSync(path, content);
-		
+
 	    	TERM.stdout.writenl("Create XPI for: " + targetPath);
-			return OS.exec("zip -r ../firephp-extension-amo-" + version + ".xpi  *", {
+			return OS.exec("zip -r ../firephp-extension-sourcemint-" + version + ".xpi  *", {
 				cwd: targetPath
 			}).then(function() {
 				return callback(null);
