@@ -1,7 +1,7 @@
 
 2013-04-11 - Release Version: 0.7.2
 
-    - Security fix
+    - Security fix for: http://www.exploit-db.com/exploits/24961/
 
 2012-04-02 - Release Version: 0.7.1
 
