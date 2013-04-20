@@ -1,6 +1,8 @@
 {
-    "uid": "https://github.com/firephp/firephp-extension/workspace/",
     "name": "firephp-extension-workspace",
+    "version": "0.0.0",
+    "pm": "sm",
+    "main": "./server.js",
     "repositories": [
         {
             "type": "git",
@@ -8,20 +10,27 @@
             "path": "workspace"
         }
     ],
-    "main": "lib/main.js",
-    "scripts": {
-        "build": {
-            "location": "./",
-            "module": "/scripts/build.js"
-        },
-        "publish": {
-            "location": "./",
-            "module": "/scripts/publish.js"
-        }
+    "dependencies": {
+        "pinf": "~0.2.17",
+        "sm-util": "~0.1.12",
+        "express": "~3.1.0",
+        "hbs": "~2.1.0"        
     },
     "mappings": {
-        "modules": {
-            "id": "github.com/pinf/modules-js/"
-        }
+        "firefox": [
+            "dmg",
+            "http://download.cdn.mozilla.net/pub/mozilla.org/firefox/releases/20.0/mac/en-US/Firefox%2020.0.dmg"
+        ],
+        "firebug": [
+            "archive",
+            "https://getfirebug.com/releases/firebug/1.11/firebug-1.11.2.xpi"
+        ],
+        "fbtrace": [
+            "archive",
+            "https://getfirebug.com/releases/fbtrace/1.11/fbTrace-1.11.2.xpi"
+        ]
+    },
+    "scripts": {
+        "run": "./scripts/run.js"
     }
 }
