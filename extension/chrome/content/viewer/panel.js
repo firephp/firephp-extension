@@ -94,7 +94,7 @@ function print_r(obj, indent, depth, isObject) {
         output += '<div>';
 
       if(obj['__className']) {
-        output +=  '<font color="brown"><b>' + obj['__className'] + '(</b></font>' + nl;
+        output +=  '<font color="brown"><b>' + escapeHTML(obj['__className']) + '(</b></font>' + nl;
         isClass = true;
       } else {
         output += 'array(';
@@ -162,19 +162,19 @@ function print_r(obj, indent, depth, isObject) {
               keyClass += '-static';
             }
           }
-          output += '<span class="'+keyClass+'">' + keyVal + '</span> = ';
+          output += '<span class="'+keyClass+'">' + escapeHTML(keyVal) + '</span> = ';
           
         } else {
         
           if (IsNumeric(key)) {
-            output += str_repeat(ws, indent) + '[' + '<font color="green">' + key + '</font>' + '] => ';
+            output += str_repeat(ws, indent) + '[' + '<font color="green">' + escapeHTML(key) + '</font>' + '] => ';
           }
           else 
           if (typeof(key) == "string") {
-            output += str_repeat(ws, indent) + '[' + '<font color="red">\'' + key + '\'</font>' + '] => ';
+            output += str_repeat(ws, indent) + '[' + '<font color="red">\'' + escapeHTML(key) + '\'</font>' + '] => ';
           }
           else {
-            output += str_repeat(ws, indent) + '[' + key + '] => ';
+            output += str_repeat(ws, indent) + '[' + escapeHTML(key) + '] => ';
           }
         }
                 
@@ -184,7 +184,7 @@ function print_r(obj, indent, depth, isObject) {
           
           output += '<div class="value" id="' + hex_md5(UniqueIndex + key) + 'v">';
           output += '<font color="navy">';
-          output += new String(child).toUpperCase();
+          output += escapeHTML(new String(child).toUpperCase());
           output += '</font>';
           output += '</div>';
           output += '<div class="hide" id="' + hex_md5(UniqueIndex + key) + 'k">';
@@ -200,7 +200,7 @@ function print_r(obj, indent, depth, isObject) {
 
           output += '<div class="name-block" key="' + hex_md5(UniqueIndex + key) + '">';
           if(child['__className']) {
-            output +=  '<font color="brown"><b>' + child['__className'] + '(</b></font>';
+            output +=  '<font color="brown"><b>' + escapeHTML(child['__className']) + '(</b></font>';
           } else {
             output += 'array(';
           }
@@ -241,7 +241,7 @@ function print_r(obj, indent, depth, isObject) {
         if (IsNumeric(child)) {
         
           output += '<div class="value" id="' + hex_md5(UniqueIndex + key) + 'v">';
-          output += '<font color="green">' + child + '</font>';
+          output += '<font color="green">' + escapeHTML(child) + '</font>';
           output += '</div>';
           output += '<div class="hide" id="' + hex_md5(UniqueIndex + key) + 'k">';
           output += '<div class="name" key="' + hex_md5(UniqueIndex + key) + '">';
