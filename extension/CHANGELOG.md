@@ -1,4 +1,8 @@
 
+2013-09-03 - Release Version: 0.7.3
+
+    - (Issue 10) [Tables broken since Firebug 1.12](https://github.com/firephp/firephp-extension/issues/10)
+
 2013-04-11 - Release Version: 0.7.2
 
     - Security fix for: http://www.exploit-db.com/exploits/24961/
