@@ -19,15 +19,15 @@
     "mappings": {
         "firefox": [
             "dmg",
-            "http://download.cdn.mozilla.net/pub/mozilla.org/firefox/releases/20.0/mac/en-US/Firefox%2020.0.dmg"
+            "http://download.cdn.mozilla.net/pub/mozilla.org/firefox/releases/23.0/mac/en-US/Firefox%2023.0.dmg"
         ],
         "firebug": [
             "archive",
-            "https://getfirebug.com/releases/firebug/1.11/firebug-1.11.2.xpi"
+            "https://getfirebug.com/releases/firebug/1.12/firebug-1.12.0.xpi"
         ],
         "fbtrace": [
             "archive",
-            "https://getfirebug.com/releases/fbtrace/1.11/fbTrace-1.11.2.xpi"
+            "https://getfirebug.com/releases/fbtrace/1.12/fbTrace-1.12b3.xpi"
         ]
     },
     "scripts": {
