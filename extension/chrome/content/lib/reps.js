@@ -586,13 +586,16 @@ function(WINDOW, DOMPLATE, DOM, CSS, EVENTS)
         	              CSS.toggleClass(logRow, "opened");
         	              
         	              if (CSS.hasClass(logRow, "opened")) {
-        	              
-        	                /* Lets only render the stack trace once we request it */
-        	                if (!DOM.getChildByClass(logRow.firstChild.firstChild, "head", "info")) {
-        	                  this.infoTag.append({
-        	                    'object': DOM.getChildByClass(logRow.firstChild.firstChild, "head").repObject
-        	                  }, DOM.getChildByClass(logRow.firstChild.firstChild, "head"));
-        	                }
+
+        	              	var head = logRow.getElementsByClassName("head")[0];
+        	              	if (head) {
+	        	                /* Lets only render the stack trace once we request it */
+	        	                if (!head.getElementsByClassName("info")[0]) {
+	        	                  this.infoTag.append({
+	        	                    'object': head.repObject
+	        	                  }, head);
+	        	                }
+	        	            }
         	              }
         	            }
         	          },
@@ -769,14 +772,15 @@ function(WINDOW, DOMPLATE, DOM, CSS, EVENTS)
         	        
         	              if (CSS.hasClass(logRow, "opened"))
         	              {
-        	        
-        	                /* Lets only render the stack trace once we request it */        
-        	                if (!DOM.getChildByClass(logRow.firstChild.firstChild, "head", "info"))
-        	                {
-        	                    this.infoTag.append({'object':DOM.getChildByClass(logRow.firstChild.firstChild, "head").repObject,
-        	                                         'meta':DOM.getChildByClass(logRow.firstChild.firstChild, "head").repMeta},
-        	                                        DOM.getChildByClass(logRow.firstChild.firstChild, "head"));
-        	                }
+        	              	var head = logRow.getElementsByClassName("head")[0];
+        	              	if (head) {
+	        	                /* Lets only render the stack trace once we request it */
+	        	                if (!head.getElementsByClassName("info")[0]) {
+	        	                    this.infoTag.append({'object':head.repObject,
+	        	                                         'meta':head.repMeta},
+	        	                                        head);
+	        	                }
+	        	            }
         	              }
         	            }
         	          },
