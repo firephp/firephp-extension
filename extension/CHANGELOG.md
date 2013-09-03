@@ -1,4 +1,5 @@
 
+2013-09-03 - Release Version: 0.7.4
 2013-09-03 - Release Version: 0.7.3
 
     - (Issue 10) [Tables broken since Firebug 1.12](https://github.com/firephp/firephp-extension/issues/10)
