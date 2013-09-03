@@ -67,8 +67,8 @@
     margin: 0px;
 }
 
-.logRow-firephp-trace > .head,
-.logRow-firephp-exception > .head {
+.logRow-firephp-trace .head,
+.logRow-firephp-exception .head {
   margin: 0px;
   padding-bottom: 1px;
   padding-top: 2px;
@@ -76,8 +76,8 @@
   background-color: LightYellow;
 }
 
-.logRow-firephp-trace > .head > .title,
-.logRow-firephp-exception > .head > .title {
+.logRow-firephp-trace .head > .title,
+.logRow-firephp-exception .head > .title {
   cursor: pointer;
   padding-left: 22px;    
   padding-bottom: 0px;
@@ -91,14 +91,14 @@
   text-decoration: underline;
 }
 
-.logRow-firephp-trace > .head > .title:hover,
-.logRow-firephp-exception > .head > .title:hover {
+.logRow-firephp-trace .head > .title:hover,
+.logRow-firephp-exception .head > .title:hover {
     color: blue;
     text-decoration: none !important;
 }
 
-.logRow-firephp-trace > .head > .title:hover,
-.logRow-firephp-exception > .head > .title:hover {
+.logRow-firephp-trace .head > .title:hover,
+.logRow-firephp-exception .head > .title:hover {
     text-decoration: underline !important;
     color: blue;
 }
@@ -109,56 +109,56 @@
 }
 
 
-.logRow-firephp-trace > .head > .info,
-.logRow-firephp-exception > .head > .info {
+.logRow-firephp-trace .head > .info,
+.logRow-firephp-exception .head > .info {
     display: none;
     padding-left: 10px;
     margin-top: 2px;
     padding-bottom: 10px;
 }
 
-.logRow-firephp-trace.opened > .head > .info,
-.logRow-firephp-exception.opened > .head > .info {
+.logRow-firephp-trace.opened .head > .info,
+.logRow-firephp-exception.opened .head > .info {
     display: block;
 }
 
 
-.logRow-firephp-trace.opened > .head > .info > TABLE TBODY TR TD.headerFile,
-.logRow-firephp-exception.opened > .head > .info > TABLE TBODY TR TD.headerFile {
+.logRow-firephp-trace.opened .head > .info > TABLE TBODY TR TD.headerFile,
+.logRow-firephp-exception.opened .head > .info > TABLE TBODY TR TD.headerFile {
   white-space:nowrap;
   font-weight: bold;
 }
 
-.logRow-firephp-trace.opened > .head > .info > TABLE TBODY TR TD.headerLine,
-.logRow-firephp-trace.exception > .head > .info > TABLE TBODY TR TD.headerLine {
+.logRow-firephp-trace.opened .head > .info > TABLE TBODY TR TD.headerLine,
+.logRow-firephp-trace.exception .head > .info > TABLE TBODY TR TD.headerLine {
   white-space:nowrap;
   font-weight: bold;
   text-align: right;
 }
-.logRow-firephp-trace.opened > .head > .info > TABLE TBODY TR TD.headerInst,
-.logRow-firephp-exception.opened > .head > .info > TABLE TBODY TR TD.headerInst {
+.logRow-firephp-trace.opened .head > .info > TABLE TBODY TR TD.headerInst,
+.logRow-firephp-exception.opened .head > .info > TABLE TBODY TR TD.headerInst {
   white-space:nowrap;
   font-weight: bold;
   padding-left: 10px;
   width: 100%;
 }
 
-.logRow-firephp-trace.opened > .head > .info > TABLE TBODY TR TD.cellFile,
-.logRow-firephp-exception.opened > .head > .info > TABLE TBODY TR TD.cellFile {
+.logRow-firephp-trace.opened .head > .info > TABLE TBODY TR TD.cellFile,
+.logRow-firephp-exception.opened .head > .info > TABLE TBODY TR TD.cellFile {
   white-space:nowrap;
   vertical-align: top;
   border:1px solid #D7D7D7;
   padding-right: 10px;
 }
-.logRow-firephp-trace.opened > .head > .info > TABLE TBODY TR TD.cellLine,
-.logRow-firephp-exception.opened > .head > .info > TABLE TBODY TR TD.cellLine {
+.logRow-firephp-trace.opened .head > .info > TABLE TBODY TR TD.cellLine,
+.logRow-firephp-exception.opened .head > .info > TABLE TBODY TR TD.cellLine {
   white-space:nowrap;
   vertical-align: top;
   border:1px solid #D7D7D7;
   text-align: right;
 }
-.logRow-firephp-trace.opened > .head > .info > TABLE TBODY TR TD.cellInst,
-.logRow-firephp-exception.opened > .head > .info > TABLE TBODY TR TD.cellInst {
+.logRow-firephp-trace.opened .head > .info > TABLE TBODY TR TD.cellInst,
+.logRow-firephp-exception.opened .head > .info > TABLE TBODY TR TD.cellInst {
   border:1px solid #D7D7D7;
   vertical-align: top;
   padding-left: 10px;
@@ -167,13 +167,13 @@
 
 
 
-.logRow-firephp-trace > .head > .title {
+.logRow-firephp-trace .head > .title {
   background-image: url(chrome://firephp/skin/traceIcon.png) !important;
   color: black;
   font-weight: normal;
   text-decoration: none;
 }
-.logRow-firephp-trace > .head {
+.logRow-firephp-trace .head {
   background-color: #f0f3f9;
 }
 
@@ -184,7 +184,7 @@
     margin: 0px;
 }
 
-.logRow-firephp-table > .head {
+.logRow-firephp-table .head {
   margin: 0px;
   padding-bottom: 1px;
   padding-top: 2px;
@@ -192,7 +192,7 @@
   background-color: #f0f3f9;
 }
 
-.logRow-firephp-table > .head > .title {
+.logRow-firephp-table .head > .title {
   cursor: pointer;
   padding-left: 23px;    
   padding-bottom: 0px;
@@ -206,12 +206,12 @@
   text-decoration: none;
 }
 
-.logRow-firephp-table > .head > .title:hover {
+.logRow-firephp-table .head > .title:hover {
     color: blue;
     text-decoration: none !important;
 }
 
-.logRow-firephp-table > .head > .title:hover {
+.logRow-firephp-table .head > .title:hover {
     text-decoration: underline !important;
     color: blue;
 }
@@ -221,25 +221,25 @@
 }
 
 
-.logRow-firephp-table > .head > .info {
+.logRow-firephp-table .head > .info {
     display: none;
     padding-left: 10px;
     margin-top: 2px;
     padding-bottom: 10px;
 }
 
-.logRow-firephp-table.opened > .head > .info {
+.logRow-firephp-table.opened .head > .info {
     display: block;
 }
 
 
-.logRow-firephp-table.opened > .head > .info > TABLE TBODY TR TD.header {
+.logRow-firephp-table.opened .head > .info > TABLE TBODY TR TD.header {
   font-weight: bold;
   padding-left: 10px;
   padding-right: 10px;
 }
 
-.logRow-firephp-table.opened > .head > .info > TABLE TBODY TR TD.cell {
+.logRow-firephp-table.opened .head > .info > TABLE TBODY TR TD.cell {
   vertical-align: top;
   border:1px solid #D7D7D7;
   padding-left: 10px;

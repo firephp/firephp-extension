@@ -588,10 +588,10 @@ function(WINDOW, DOMPLATE, DOM, CSS, EVENTS)
         	              if (CSS.hasClass(logRow, "opened")) {
         	              
         	                /* Lets only render the stack trace once we request it */
-        	                if (!DOM.getChildByClass(logRow, "head", "info")) {
+        	                if (!DOM.getChildByClass(logRow.firstChild.firstChild, "head", "info")) {
         	                  this.infoTag.append({
-        	                    'object': DOM.getChildByClass(logRow, "head").repObject
-        	                  }, DOM.getChildByClass(logRow, "head"));
+        	                    'object': DOM.getChildByClass(logRow.firstChild.firstChild, "head").repObject
+        	                  }, DOM.getChildByClass(logRow.firstChild.firstChild, "head"));
         	                }
         	              }
         	            }
@@ -771,11 +771,11 @@ function(WINDOW, DOMPLATE, DOM, CSS, EVENTS)
         	              {
         	        
         	                /* Lets only render the stack trace once we request it */        
-        	                if (!DOM.getChildByClass(logRow, "head", "info"))
+        	                if (!DOM.getChildByClass(logRow.firstChild.firstChild, "head", "info"))
         	                {
-        	                    this.infoTag.append({'object':DOM.getChildByClass(logRow, "head").repObject,
-        	                                         'meta':DOM.getChildByClass(logRow, "head").repMeta},
-        	                                        DOM.getChildByClass(logRow, "head"));
+        	                    this.infoTag.append({'object':DOM.getChildByClass(logRow.firstChild.firstChild, "head").repObject,
+        	                                         'meta':DOM.getChildByClass(logRow.firstChild.firstChild, "head").repMeta},
+        	                                        DOM.getChildByClass(logRow.firstChild.firstChild, "head"));
         	                }
         	              }
         	            }
