@@ -209,11 +209,12 @@ function(DOMPLATE, REPS, CSS)
   	            // NOTE: Throttleing is disabled which may caue the group to be interted in a different
 	            //       index than originally intended as other messages are inserted with throttleing enabled.
 	            //       This should be done in a better way in future.
-	            var row = Firebug.Console.openGroup(msg, context, "group", null, true);
-	          
-	            if(meta.Collapsed && meta.Collapsed=='true') {
-	                CSS.removeClass(row, "opened");
-	            }
+                    if (meta.Collapsed && 'true' == meta.Collapsed) {
+                        var row = Firebug.Console.openCollapsedGroup(msg, context, "group", null, true);
+                    } else {
+                        var row = Firebug.Console.openGroup(msg, context, "group", null, true);
+                    }
+
 	            if(meta.Color) {
 	                row.style.color = meta.Color;
 	            }
