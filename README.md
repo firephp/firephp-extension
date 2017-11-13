@@ -1,7 +1,10 @@
+**DEPRECATED: For new Web Extension see https://github.com/firephp/firephp-for-firefox-devtools
+
+---
+
+
 FirePHP Firefox Extension
 =========================
-
-*Stability: stable*
 
 This project contains the [FirePHP](http://www.firephp.org/) Firefox Extension hosted at:
 [https://addons.mozilla.org/en-US/firefox/addon/firephp/](https://addons.mozilla.org/en-US/firefox/addon/firephp/)
