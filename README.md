@@ -1,4 +1,4 @@
-**DEPRECATED: For new Firefox Web Extension see https://github.com/firephp/firephp-for-firefox-devtools**
+**DEPRECATED: For new Firefox Web Extension see https://github.com/firephp/firephp-for-browser-devtools**
 
 ---
 
