@@ -61,7 +61,7 @@ function(DOMPLATE, REPS, CSS)
         if (this.consoleTemplates[TemplateName]) {
             oo = Firebug.Console.logRow(function(object, row, rep) {
                 return rep.tag.append({object: object, meta:Meta}, row);
-            }, Data, context, this.consoleTemplates[TemplateName].className, this.consoleTemplates[TemplateName], null, false);
+            }, Data, context, this.consoleTemplates[TemplateName].className, this.consoleTemplates[TemplateName], null, true);
         } else
         if(UseFirebugTemplates) {
         
